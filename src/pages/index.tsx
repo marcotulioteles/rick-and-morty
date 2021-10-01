@@ -1,10 +1,11 @@
 import type { NextPage } from 'next'
 import { Container } from '../components/Container'
+import { Header } from '../components/Header'
 
 const Home: NextPage = () => {
   return (
     <Container>
-      <h1 style={{ color: "#FFF" }}>RICK AND MORTY</h1>
+      <Header />
     </Container>
   )
 }
