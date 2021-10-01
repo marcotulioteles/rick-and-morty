@@ -1,4 +1,5 @@
 import React from 'react'
+import { MainWrapper } from '../../components/MainWrapper'
 
 import {
   Container
@@ -6,8 +7,8 @@ import {
 
 export default function Favorites() {
   return (
-    <Container>
+    <MainWrapper>
       <h1>Favorites</h1>
-    </Container>
+    </MainWrapper>
   )
 }

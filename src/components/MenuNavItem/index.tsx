@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link'
 import { IconBaseProps } from 'react-icons'
 import { useTheme } from 'styled-components';
@@ -21,10 +21,14 @@ export function MenuNavItem({ href, icon: Icon, title, active }: MenuNavItemProp
   const [isActive, setIsActive] = useState(false);
   const { pathname } = useRouter();
 
+  useEffect(() => {
+    (pathname === href) ? setIsActive(true) : setIsActive(false)
+  }, [pathname])
+
   return (
     <Link href={href} passHref>
-      <Container>
-        <Icon size={32} color={theme.colors.highlight}/>
+      <Container active={isActive}>
+        <Icon size={32} color={isActive ? theme.colors.primary : theme.colors.highlight}/>
         <Title>{title}</Title>
       </Container>
     </Link>

@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
-import { Container } from '../components/Container'
-import { Header } from '../components/Header'
+import { HomeContent } from '../components/HomeContent'
+import { MainWrapper } from '../components/MainWrapper'
 
 const Home: NextPage = () => {
   return (
-    <Container>
-      <Header />
-    </Container>
+    <MainWrapper>
+      <HomeContent />
+    </MainWrapper>
   )
 }
 
