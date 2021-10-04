@@ -1,14 +1,11 @@
 import React from 'react'
+import { EpisodeInfoPage } from '../../components/EpisodeInfoPage'
 import { MainWrapper } from '../../components/MainWrapper'
-
-import {
-  Container
-} from './styles'
 
 export default function Favorites() {
   return (
     <MainWrapper>
-      <h1>Favorites</h1>
+      <EpisodeInfoPage />
     </MainWrapper>
   )
 }

@@ -4,7 +4,8 @@ import { MainWrapper } from '../../components/MainWrapper'
 
 import {
   Container,
-  Content
+  Content,
+  Title
 } from './styles'
 
 export default function AllEpisodes() {
@@ -92,6 +93,7 @@ export default function AllEpisodes() {
           />
         </Content>
       </Container>
+      <Title src="/images/rick-and-morty-title.png" alt="Rick And Morty" />
     </MainWrapper>
   )
 }

@@ -24,3 +24,8 @@ export const Content = styled.div`
     background-color: ${({theme }) => theme.colors.background };
   }
 `;
+
+export const Title = styled.img`
+  position: absolute;
+  top: -80px;
+`;
