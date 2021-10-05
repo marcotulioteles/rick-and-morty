@@ -1,4 +1,5 @@
 import React from 'react';
+import { CharacterInfoCard } from '../CharacterInfoCard';
 
 import {
   Container,
@@ -24,7 +25,16 @@ export function EpisodeInfoPage() {
         <CharactersContainer>
           <CharactersTitleContainer>characters in this<br/>episode</CharactersTitleContainer>
           <CharactersInfoContent>
-
+            <CharacterInfoCard />
+            <CharacterInfoCard />
+            <CharacterInfoCard />
+            <CharacterInfoCard />
+            <CharacterInfoCard />
+            <CharacterInfoCard />
+            <CharacterInfoCard />
+            <CharacterInfoCard />
+            <CharacterInfoCard />
+            <CharacterInfoCard />
           </CharactersInfoContent>
         </CharactersContainer>
       </Content>

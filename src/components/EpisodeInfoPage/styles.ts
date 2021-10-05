@@ -71,9 +71,10 @@ export const CharactersTitleContainer = styled.h1`
 
 export const CharactersInfoContent = styled.div`
   width: 90%;
-  height: 90%;
+  height: 420px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  row-gap: 32px;
   justify-items: center;
   margin-bottom: 32px;
 
