@@ -30,10 +30,12 @@ export const InfoContent = styled.div`
 `;
 
 export const Title = styled.h1`
+  max-width: 90%;
   font-family: 'Audiowide', 'Arial', sans-serif;
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: normal;
   text-transform: lowercase;
+  word-wrap: break-word;
 `;
 
 export const InfoDate = styled.span`
