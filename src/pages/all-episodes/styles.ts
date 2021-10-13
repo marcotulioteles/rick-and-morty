@@ -29,3 +29,14 @@ export const Title = styled.img`
   position: absolute;
   top: -80px;
 `;
+
+export const LoadMoreButton = styled.button`
+  width: 200px;
+  height: 64px;
+  background-color: ${({ theme }) =>  theme.colors.highlight};
+  border-radius: 32px;
+  position: absolute;
+  bottom: -32px;
+  left: calc(50% - 100px);
+  font-size: 1.125rem;
+`;
