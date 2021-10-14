@@ -62,9 +62,9 @@ export function HomeContent() {
     <Container>
       <InputSearch
         inputID="search"
-        inputName="search"
+        inputName="search" 
         inputType="text"
-        placeholder="search an episode"
+        placeholder="search an episode by name"
         onChange={handleSearchEpisode}
       />
       {debouncedValue ?
@@ -89,7 +89,11 @@ export function HomeContent() {
             justifyContent: "center" 
           }}
         >
-          <h1 style={{ fontSize: "2.5rem", color: `${theme.colors.highlight}`, fontWeight: "normal" }}>Data Not Found!</h1>
+          <h1 style={{ 
+            fontSize: "2.5rem", 
+            color: `${theme.colors.highlight}`, 
+            fontWeight: "normal" 
+          }}>Data Not Found!</h1>
         </div>) :
         <>
           <TitleContent>

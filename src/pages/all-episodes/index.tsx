@@ -30,6 +30,7 @@ export type EpisodesResults = {
   id: string;
   name: string;
   air_date: string;
+  favorite?: boolean;
   characters: Characters[];
 }
 
@@ -73,20 +74,52 @@ export default function AllEpisodes() {
   const { data, loading, fetchMore } = useQuery<EpisodesData>(GET_ALL_EPISODES, {
     variables: { fetchPage }
   });
-  const [episodes, setEpisodes] = useState<EpisodesResults[]>([])
+  const [episodes, setEpisodes] = useState<EpisodesResults[]>([]);
 
   function handleFetchMoreEpisodes() {
     setFetchPage(fetchPage + 1);
   }
 
   useEffect(() => {
-    if (data) {
-      setEpisodes([...episodes, ...data.episodes.results])
-    }
-  }, [data]);
+    function loadEpisodes() {
+      try {
+        if (data) {
+          const provisoryEpisodes1 = [...episodes, ...data.episodes.results].map(element => {
+            const newElement = { ...element, favorite: false }
+            return newElement
+          });
 
-  { console.log(episodes) }
-  // { console.log(page) }
+          let favoriteEpisodes = localStorage.getItem("@rick-and-morty:favorites");
+
+          let favoriteEpisodesParsed: EpisodesResults[]
+
+          if (favoriteEpisodes) {
+            favoriteEpisodesParsed = JSON.parse(favoriteEpisodes);
+          } else {
+            favoriteEpisodesParsed = []
+          }
+
+          const provisoryEpisodes2 = provisoryEpisodes1.map(element => {
+            const index = favoriteEpisodesParsed.findIndex(value => value.id === element.id);
+            if (index > 0) {
+              return { ...element, favorite: true }
+            } else {
+              return element
+            }
+          }).filter(function (element) {
+            return !this[JSON.stringify(element)] && (this[JSON.stringify(element)] = true);
+          }, Object.create(null));
+
+          // console.log(provisoryEpisodes2)
+          setEpisodes(provisoryEpisodes2);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    loadEpisodes()
+  }, [data]);
 
   return (
     <MainWrapper>
@@ -120,6 +153,8 @@ export default function AllEpisodes() {
                 title={episode.name}
                 date={episode.air_date}
                 charactersNumber={String(episode.characters.length)}
+                episodeID={episode.id}
+                active={episode.favorite}
               />
             ))}
           </Content>

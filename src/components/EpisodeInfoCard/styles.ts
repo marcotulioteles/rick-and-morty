@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface ButtonProps {
+  active?: boolean;
+}
+
 export const Container = styled.div`
   width: 160px;
   height: 280px;
@@ -60,17 +64,17 @@ export const ButtonsContainer = styled.div`
   margin: 12px 0;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<ButtonProps>`
   height: 24px;
   width: 68px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 12px;
-  border: 1px solid ${({ theme }) => theme.colors.title};
+  border: 1px solid ${({ theme, active }) => active ? theme.colors.highlight : theme.colors.title};
   background: none;
   outline: none;
-  color: ${({ theme }) => theme.colors.title};
+  color: ${({ theme, active }) => active ? theme.colors.highlight : theme.colors.title};
   font-size: 0.65rem;
   font-family: 'Exo 2', 'Arial', sans-serif;
   padding: 0 6px;
