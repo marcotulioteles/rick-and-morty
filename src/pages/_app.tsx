@@ -3,6 +3,7 @@ import { GlobalStyle } from '../styles/global';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../styles/theme';
 import { ApolloProvider, ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { EpisodesProvider } from '../contexts/EpisodesContext';
 
 const httpLink = createHttpLink({
   uri: 'https://rickandmortyapi.com/graphql'
@@ -27,7 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <GlobalStyle />
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
-          <Component {...pageProps} />
+          <EpisodesProvider>
+            <Component {...pageProps} />
+          </EpisodesProvider>
         </ApolloProvider>
       </ThemeProvider>
     </>

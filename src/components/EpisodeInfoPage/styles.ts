@@ -17,7 +17,8 @@ export const Content = styled.div`
   justify-content: space-between;
 `;
 
-export const InfoEpisodeTextContent = styled.div` 
+export const InfoEpisodeTextContent = styled.div`
+  max-width: 50%;
   height: 75%;
   display: flex;
   flex-direction: column;
@@ -33,11 +34,12 @@ export const InfoEpisodeNumber = styled.h1`
 `;
 
 export const InfoEpisodeTitle = styled.h2`
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-family: 'Audiowide', 'Arial', sans-serif;
   font-weight: normal;
   color: ${({ theme }) => theme.colors.title};
   padding-right: 16px;
+  word-wrap: break-word;
 `;
 
 export const InfoEpisodeDateRelease = styled.span`

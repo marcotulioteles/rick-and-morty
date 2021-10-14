@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 140px;
+  height: fit-content;
   width: 80px;
 
   display: flex;
@@ -16,11 +16,13 @@ export const CharacterImage = styled.img`
 `;
 
 export const CharacterName = styled.h1`
+  width: 80px;
   text-align: center;
-  font-size: 1rem;
+  font-size: .85rem;
   font-family: 'Audiowide', 'Arial', sans-serif;
   color: ${({ theme }) => theme.colors.title};
   margin: 4px 0;
+  word-wrap: break-word;
 `;
 
 export const CharacterInfoContent = styled.div`

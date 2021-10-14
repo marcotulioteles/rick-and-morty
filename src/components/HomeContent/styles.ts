@@ -49,3 +49,25 @@ export const RickAndMorty = styled.img`
   position: absolute;
   right: -32px;
 `;
+
+export const ContentEpisodeCards = styled.div`
+  width: 90%;
+  height: 480px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 24px;
+  padding: 32px 32px 32px 0;
+  margin-top: 32px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({theme }) => theme.colors.highlight };
+    border-radius: 0.25rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: ${({theme }) => theme.colors.background };
+  }
+`;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { EpisodeInfoCard } from '../../components/EpisodeInfoCard'
 import { MainWrapper } from '../../components/MainWrapper'
 import { useQuery, gql } from '@apollo/client'
@@ -9,12 +9,14 @@ import {
   Title,
   LoadMoreButton
 } from './styles'
+import { EpisodesContext } from '../../contexts/EpisodesContext'
 
-type Characters = {
+export type Characters = {
   id: string;
   name: string;
   status: string;
   species: string;
+  image?: string;
 }
 
 type EpisodesInfo = {
@@ -24,7 +26,7 @@ type EpisodesInfo = {
   next: number;
 }
 
-type EpisodesResults = {
+export type EpisodesResults = {
   id: string;
   name: string;
   air_date: string;
@@ -41,8 +43,8 @@ export interface EpisodesData {
 }
 
 const GET_ALL_EPISODES = gql`
-    query getEpisodes($page: Int){
-      episodes(page: $page) {
+    query getEpisodes($fetchPage: Int){
+      episodes(page: $fetchPage) {
         info {
           count
           pages
@@ -58,6 +60,7 @@ const GET_ALL_EPISODES = gql`
             name
             status
             species
+            image
           }
         }
       }
@@ -65,14 +68,15 @@ const GET_ALL_EPISODES = gql`
   `;
 
 export default function AllEpisodes() {
-  const [page, setPage] = useState(1);
+  const { setPage, page } = useContext(EpisodesContext);
+  const [fetchPage, setFetchPage] = useState(1);
   const { data, loading, fetchMore } = useQuery<EpisodesData>(GET_ALL_EPISODES, {
-    variables: { page }
+    variables: { fetchPage }
   });
   const [episodes, setEpisodes] = useState<EpisodesResults[]>([])
 
   function handleFetchMoreEpisodes() {
-    setPage(page + 1);
+    setFetchPage(fetchPage + 1);
   }
 
   useEffect(() => {
@@ -82,6 +86,7 @@ export default function AllEpisodes() {
   }, [data]);
 
   { console.log(episodes) }
+  // { console.log(page) }
 
   return (
     <MainWrapper>
@@ -107,8 +112,9 @@ export default function AllEpisodes() {
         </div> :
         <Container>
           <Content>
-            {data && episodes.map(episode => (
+            {data && episodes.map((episode, index) => (
               <EpisodeInfoCard
+                clickedEpisodeInfoCard={episode}
                 key={episode.id}
                 episodeNumber={Number(episode.id) < 10 ? `0${String(episode.id)}` : String(episode.id)}
                 title={episode.name}
@@ -125,8 +131,9 @@ export default function AllEpisodes() {
           onClick={() => {
             handleFetchMoreEpisodes()
             fetchMore({
-              variables: { page }
+              variables: { fetchPage }
             })
+            setPage(fetchPage + 1);
           }}
         >
           Load More

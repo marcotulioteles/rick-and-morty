@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { EpisodesContext } from '../../contexts/EpisodesContext';
 import { CharacterInfoCard } from '../CharacterInfoCard';
 
 import {
@@ -14,30 +15,33 @@ import {
 } from './styles'
 
 export function EpisodeInfoPage() {
+  const { clickedEpisode } = useContext(EpisodesContext);
+
   return (
     <Container>
-      <Content>
-        <InfoEpisodeTextContent>
-          <InfoEpisodeNumber>episode 02</InfoEpisodeNumber>
-          <InfoEpisodeTitle>Cãotador de grama</InfoEpisodeTitle>
-          <InfoEpisodeDateRelease>date release: 01/01/2017</InfoEpisodeDateRelease>
-        </InfoEpisodeTextContent>
-        <CharactersContainer>
-          <CharactersTitleContainer>characters in this<br/>episode</CharactersTitleContainer>
-          <CharactersInfoContent>
-            <CharacterInfoCard />
-            <CharacterInfoCard />
-            <CharacterInfoCard />
-            <CharacterInfoCard />
-            <CharacterInfoCard />
-            <CharacterInfoCard />
-            <CharacterInfoCard />
-            <CharacterInfoCard />
-            <CharacterInfoCard />
-            <CharacterInfoCard />
-          </CharactersInfoContent>
-        </CharactersContainer>
-      </Content>
+      {clickedEpisode &&
+        <Content>
+          <InfoEpisodeTextContent>
+            <InfoEpisodeNumber>episode {clickedEpisode.id}</InfoEpisodeNumber>
+            <InfoEpisodeTitle>{clickedEpisode.name}</InfoEpisodeTitle>
+            <InfoEpisodeDateRelease>air date: {clickedEpisode.air_date}</InfoEpisodeDateRelease>
+          </InfoEpisodeTextContent>
+          <CharactersContainer>
+            <CharactersTitleContainer>characters in this<br />episode</CharactersTitleContainer>
+            <CharactersInfoContent>
+              {clickedEpisode.characters.map(character => (
+                <CharacterInfoCard
+                  key={character.id}
+                  id={character.id}
+                  name={character.name}
+                  species={character.species}
+                  status={character.status}
+                  image={character.image}
+                />
+              ))}
+            </CharactersInfoContent>
+          </CharactersContainer>
+        </Content>}
     </Container>
   );
 }

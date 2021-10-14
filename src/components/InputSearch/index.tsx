@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 import {
@@ -9,11 +9,12 @@ import {
 interface InputSearchProps {
   placeholder: string;
   inputType: string;
-  inputName: string,
-  inputID: string
+  inputName: string;
+  inputID: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function InputSearch({ placeholder, inputType, inputName, inputID }: InputSearchProps) {
+export function InputSearch({ placeholder, inputType, inputName, inputID, onChange }: InputSearchProps) {
   return (
     <Label>
       <FiSearch size={24} style={{ marginLeft: "16px" }}/>
@@ -22,6 +23,7 @@ export function InputSearch({ placeholder, inputType, inputName, inputID }: Inpu
         type={inputType}
         name={inputName}
         id={inputID}
+        onChange={onChange}
       />
     </Label>
   )
