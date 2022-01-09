@@ -1,5 +1,6 @@
 import React from 'react';
 import { Characters } from '../../pages/all-episodes';
+import Image from 'next/image';
 
 import {
   Container,
@@ -13,7 +14,14 @@ import {
 export function CharacterInfoCard({ id, name, species, status, image }: Characters) {
   return (
     <Container key={id}>
-      <CharacterImage src={image} alt={name}/>
+      <CharacterImage>
+        <Image
+          src={image || ''}
+          alt={name}
+          width={72}
+          height={72}
+        />
+      </CharacterImage>
       <CharacterName>{name}</CharacterName>
       <CharacterInfoContent>
         <CharacterInfoLabel>Specie:</CharacterInfoLabel>

@@ -17,23 +17,31 @@ export const Content = styled.div`
     width: 0.5rem;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: ${({theme }) => theme.colors.highlight };
+    background-color: ${({ theme }) => theme.colors.highlight};
     border-radius: 0.25rem;
   }
   &::-webkit-scrollbar-track {
-    background-color: ${({theme }) => theme.colors.background };
+    background-color: ${({ theme }) => theme.colors.background};
   }
 `;
 
-export const Title = styled.img`
+export const Title = styled.div`
   position: absolute;
   top: -80px;
+`;
+
+export const LoadingImage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 128px;
 `;
 
 export const LoadMoreButton = styled.button`
   width: 200px;
   height: 64px;
-  background-color: ${({ theme }) =>  theme.colors.highlight};
+  background-color: ${({ theme }) => theme.colors.highlight};
   border-radius: 32px;
   position: absolute;
   bottom: -32px;

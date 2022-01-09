@@ -36,7 +36,7 @@ export const Text = styled.p`
   font-size: 1rem;
 `;
 
-export const Portal = styled.img`
+export const Portal = styled.div`
   animation: spin 45s linear infinite;
 
   @keyframes spin {
@@ -45,7 +45,7 @@ export const Portal = styled.img`
   }
 `;
 
-export const RickAndMorty = styled.img`
+export const RickAndMortyImageContainer = styled.div`
   position: absolute;
   right: -32px;
 `;
@@ -64,10 +64,10 @@ export const ContentEpisodeCards = styled.div`
     width: 0.5rem;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: ${({theme }) => theme.colors.highlight };
+    background-color: ${({ theme }) => theme.colors.highlight};
     border-radius: 0.25rem;
   }
   &::-webkit-scrollbar-track {
-    background-color: ${({theme }) => theme.colors.background };
+    background-color: ${({ theme }) => theme.colors.background};
   }
 `;

@@ -9,9 +9,11 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const CharacterImage = styled.img`
-  width: 72px;
-  height: 72px;
+export const CharacterImage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   border-radius: 36px;
 `;
 

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
+import Image from 'next/image';
 import { EpisodeInfoCard } from '../../components/EpisodeInfoCard'
 import { MainWrapper } from '../../components/MainWrapper'
 import { useQuery, gql } from '@apollo/client'
@@ -7,7 +8,8 @@ import {
   Container,
   Content,
   Title,
-  LoadMoreButton
+  LoadMoreButton,
+  LoadingImage
 } from './styles'
 import { EpisodesContext } from '../../contexts/EpisodesContext'
 
@@ -42,6 +44,9 @@ interface Episodes {
 export interface EpisodesData {
   episodes: Episodes
 }
+
+const RickAndMortyLoading = "/images/rick-and-morty-loading.gif";
+const ImageTitle = "/images/rick-and-morty-title.png";
 
 const GET_ALL_EPISODES = gql`
     query getEpisodes($fetchPage: Int){
@@ -133,15 +138,14 @@ export default function AllEpisodes() {
             justifyContent: 'center'
           }}
         >
-          <img
-            src="/images/rick-and-morty-loading.gif"
-            alt="rick-and-morty"
-            style={{
-              width: '256px',
-              height: '256px',
-              borderRadius: '128px'
-            }}
-          />
+          <LoadingImage>
+            <Image
+              src={RickAndMortyLoading}
+              alt='Rick And Morty Loading'
+              width={256}
+              height={256}
+            />
+          </LoadingImage>
         </div> :
         <Container>
           <Content>
@@ -160,7 +164,14 @@ export default function AllEpisodes() {
           </Content>
         </Container>
       }
-      <Title src="/images/rick-and-morty-title.png" alt="Rick And Morty" />
+      <Title>
+        <Image
+          src={ImageTitle}
+          alt="Rick And Morty"
+          width={418}
+          height={137}
+        />
+      </Title>
       {data?.episodes.info.next &&
         <LoadMoreButton
           onClick={() => {
