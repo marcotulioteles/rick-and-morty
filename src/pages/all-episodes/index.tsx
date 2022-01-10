@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Image from 'next/image';
-import { EpisodeInfoCard } from '../../components/EpisodeInfoCard'
-import { MainWrapper } from '../../components/MainWrapper'
-import { useQuery, gql } from '@apollo/client'
+import { EpisodeInfoCard } from '../../components/EpisodeInfoCard';
+import { MainWrapper } from '../../components/MainWrapper';
+import { useQuery, gql } from '@apollo/client';
 
 import {
   Container,
@@ -10,8 +11,10 @@ import {
   Title,
   LoadMoreButton,
   LoadingImage
-} from './styles'
-import { EpisodesContext } from '../../contexts/EpisodesContext'
+} from './styles';
+import { EpisodesContext } from '../../contexts/EpisodesContext';
+import { addEpisodeToFavoritesList } from '../../store/modules/all-episodes/actions';
+import { IEpisode } from '../../store/modules/all-episodes/types';
 
 export type Characters = {
   id: string;
@@ -80,10 +83,15 @@ export default function AllEpisodes() {
     variables: { fetchPage }
   });
   const [episodes, setEpisodes] = useState<EpisodesResults[]>([]);
+  const dispatch = useDispatch();
 
   function handleFetchMoreEpisodes() {
     setFetchPage(fetchPage + 1);
   }
+
+  const handleAddEpisodeToFavorites = useCallback((episode: IEpisode) => {
+    dispatch(addEpisodeToFavoritesList(episode));
+  }, [dispatch])
 
   useEffect(() => {
     function loadEpisodes() {
@@ -149,16 +157,19 @@ export default function AllEpisodes() {
         </div> :
         <Container>
           <Content>
-            {data && episodes.map((episode, index) => (
+            {data && episodes.map(episode => (
               <EpisodeInfoCard
                 clickedEpisodeInfoCard={episode}
-                key={episode.id}
+                key={`episodeId${episode.id}`}
                 episodeNumber={Number(episode.id) < 10 ? `0${String(episode.id)}` : String(episode.id)}
                 title={episode.name}
                 date={episode.air_date}
                 charactersNumber={String(episode.characters.length)}
                 episodeID={episode.id}
                 active={episode.favorite}
+                onClick={() => {
+                  handleAddEpisodeToFavorites(episode)
+                }}
               />
             ))}
           </Content>

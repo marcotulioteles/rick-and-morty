@@ -21,47 +21,49 @@ interface EpisodeInfoCardProps {
   date: string;
   charactersNumber: string;
   episodeNumber: string;
-  active?: boolean
+  active?: boolean;
+  onClick: () => void;
 }
 
-export function EpisodeInfoCard({ 
-  title, 
-  date, 
-  charactersNumber, 
-  episodeNumber, 
-  clickedEpisodeInfoCard, 
+export function EpisodeInfoCard({
+  title,
+  date,
+  charactersNumber,
+  episodeNumber,
+  clickedEpisodeInfoCard,
   episodeID,
-  active
+  active,
+  onClick
 }: EpisodeInfoCardProps) {
   const { setClickedEpisode } = useContext(EpisodesContext);
-  
+
   function handleClickedEpisode(episode: EpisodesResults) {
     setClickedEpisode(episode)
   }
 
-  function handleSendToFavorites(episode: EpisodesResults) {
-    const newObject = { ...episode, favorite: true }
+  // function handleSendToFavorites(episode: EpisodesResults) {
+  //   const newObject = { ...episode, favorite: true }
 
-    function getFavorites() {
-      const favoriteEpisodes = localStorage.getItem("@rick-and-morty:favorites");
+  //   function getFavorites() {
+  //     const favoriteEpisodes = localStorage.getItem("@rick-and-morty:favorites");
 
-      if (favoriteEpisodes) {
-        return JSON.parse(favoriteEpisodes);
-      } else {
-        return []
-      }
-    }
+  //     if (favoriteEpisodes) {
+  //       return JSON.parse(favoriteEpisodes);
+  //     } else {
+  //       return []
+  //     }
+  //   }
 
-    const localStorageFavoriteEpisodes = getFavorites();
-    
-    let newFavoriteEpisodesArray = [ ...localStorageFavoriteEpisodes, newObject ];
+  //   const localStorageFavoriteEpisodes = getFavorites();
 
-    const newArrayFavoriteElements = newFavoriteEpisodesArray.filter(function (element) {
-      return !this[JSON.stringify(element)] && (this[JSON.stringify(element)] = true);
-    }, Object.create(null));
+  //   let newFavoriteEpisodesArray = [ ...localStorageFavoriteEpisodes, newObject ];
 
-    localStorage.setItem('@rick-and-morty:favorites', JSON.stringify(newArrayFavoriteElements));
-  }
+  //   const newArrayFavoriteElements = newFavoriteEpisodesArray.filter(function (element) {
+  //     return !this[JSON.stringify(element)] && (this[JSON.stringify(element)] = true);
+  //   }, Object.create(null));
+
+  //   localStorage.setItem('@rick-and-morty:favorites', JSON.stringify(newArrayFavoriteElements));
+  // }
 
   return (
     <Container>
@@ -75,9 +77,7 @@ export function EpisodeInfoCard({
       <ButtonsContainer>
         <Button
           active={active}
-          onClick={() => {
-            handleSendToFavorites(clickedEpisodeInfoCard)
-          }}
+          onClick={onClick}
         >
           <FiStar /> favorite
         </Button>

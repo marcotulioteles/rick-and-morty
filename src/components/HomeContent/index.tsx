@@ -18,6 +18,7 @@ import {
 } from './styles';
 import { EpisodesData } from '../../pages/all-episodes';
 import { useTheme } from 'styled-components';
+import { useStore } from 'react-redux';
 
 const rickAndMortyImage = "/images/rick-and-morty-home.png";
 const rickAndMortyTitle = "/images/rick-and-morty-title.png";
@@ -53,6 +54,9 @@ export function HomeContent() {
   const [episodeName, setEpisodeName] = useState<string>('');
   const debouncedValue = useDebounce<string>(episodeName, 500);
   const theme = useTheme();
+  const store = useStore();
+
+  console.log(store);
 
   const { data } = useQuery<EpisodesData>(GET_FILTERED_EPISODE, {
     variables: { debouncedValue }
