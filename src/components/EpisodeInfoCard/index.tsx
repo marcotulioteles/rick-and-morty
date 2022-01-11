@@ -12,7 +12,7 @@ import {
   InfoContent,
 } from './styles'
 import { EpisodesContext } from '../../contexts/EpisodesContext';
-import { EpisodesResults } from '../../pages/all-episodes';
+import { EpisodesResults } from '../../pages/episodes-rick-and-morty';
 
 interface EpisodeInfoCardProps {
   episodeID: string;

@@ -14,6 +14,7 @@ export interface IEpisode {
   characters: ICharacter[]
 }
 
-export interface IAllEpisodesState {
-  episodes: IEpisode[]
+export interface IEpisodesGlobalState {
+  favorites: IEpisode[],
+  allEpisodes: IEpisode[]
 }

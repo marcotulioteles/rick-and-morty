@@ -1,5 +1,5 @@
 import { createContext, ReactNode, SetStateAction, useState } from 'react';
-import { EpisodesResults } from '../pages/all-episodes';
+import { EpisodesResults } from '../pages/episodes-rick-and-morty';
 
 interface EpisodesContextData {
   episodeID: string;
@@ -22,15 +22,15 @@ export function EpisodesProvider({ children }: EpisodesProviderProps) {
   const [clickedEpisode, setClickedEpisode] = useState<EpisodesResults>({} as EpisodesResults);
 
   return (
-    <EpisodesContext.Provider value={{ 
-      episodeID, 
-      setEpisodeID, 
-      page, 
+    <EpisodesContext.Provider value={{
+      episodeID,
+      setEpisodeID,
+      page,
       setPage,
       clickedEpisode,
       setClickedEpisode
     }}>
-      { children }
+      {children}
     </EpisodesContext.Provider>
   )
 }

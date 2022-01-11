@@ -15,21 +15,21 @@ export function Header() {
       <Navigation>
         <NavList>
           <NavListItem>
-            <MenuNavItem 
+            <MenuNavItem
               href="/"
               icon={FiHome}
               title="home"
             />
           </NavListItem>
           <NavListItem>
-            <MenuNavItem 
+            <MenuNavItem
               href="/all-episodes"
               icon={FiFilm}
               title="all episodes"
             />
           </NavListItem>
           <NavListItem>
-            <MenuNavItem 
+            <MenuNavItem
               href="/favorites"
               icon={FiStar}
               title="favorites"

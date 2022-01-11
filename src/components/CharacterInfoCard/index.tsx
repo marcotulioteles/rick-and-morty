@@ -1,5 +1,5 @@
 import React from 'react';
-import { Characters } from '../../pages/all-episodes';
+import { Characters } from '../../pages/episodes-rick-and-morty';
 import Image from 'next/image';
 
 import {

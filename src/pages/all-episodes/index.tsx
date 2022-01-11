@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
 import { EpisodeInfoCard } from '../../components/EpisodeInfoCard';
 import { MainWrapper } from '../../components/MainWrapper';
@@ -13,8 +13,10 @@ import {
   LoadingImage
 } from './styles';
 import { EpisodesContext } from '../../contexts/EpisodesContext';
-import { addEpisodeToFavoritesList } from '../../store/modules/all-episodes/actions';
-import { IEpisode } from '../../store/modules/all-episodes/types';
+import { addEpisodeToFavoritesList, loadEpisodesFetched } from '../../store/modules/episodes-rick-and-morty/actions';
+import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
+import { IState } from '../../store';
+import { uniqueArray } from '../../lib/utils';
 
 export type Characters = {
   id: string;
@@ -82,56 +84,30 @@ export default function AllEpisodes() {
   const { data, loading, fetchMore } = useQuery<EpisodesData>(GET_ALL_EPISODES, {
     variables: { fetchPage }
   });
-  const [episodes, setEpisodes] = useState<EpisodesResults[]>([]);
+  // const [episodes, setEpisodes] = useState<EpisodesResults[]>([]);
   const dispatch = useDispatch();
+  const episodesHome = useSelector<IState, IEpisode[]>(state => state.episodesGlobalState.allEpisodes);
 
   function handleFetchMoreEpisodes() {
     setFetchPage(fetchPage + 1);
   }
 
-  const handleAddEpisodeToFavorites = useCallback((episode: IEpisode) => {
-    dispatch(addEpisodeToFavoritesList(episode));
-  }, [dispatch])
+  const handleAddEpisodeToFavorites = useCallback((episodeId: string) => {
+    dispatch(addEpisodeToFavoritesList(episodeId));
+  }, [dispatch]);
 
   useEffect(() => {
     function loadEpisodes() {
       try {
         if (data) {
-          const provisoryEpisodes1 = [...episodes, ...data.episodes.results].map(element => {
-            const newElement = { ...element, favorite: false }
-            return newElement
-          });
-
-          let favoriteEpisodes = localStorage.getItem("@rick-and-morty:favorites");
-
-          let favoriteEpisodesParsed: EpisodesResults[]
-
-          if (favoriteEpisodes) {
-            favoriteEpisodesParsed = JSON.parse(favoriteEpisodes);
-          } else {
-            favoriteEpisodesParsed = []
-          }
-
-          const provisoryEpisodes2 = provisoryEpisodes1.map(element => {
-            const index = favoriteEpisodesParsed.findIndex(value => value.id === element.id);
-            if (index > 0) {
-              return { ...element, favorite: true }
-            } else {
-              return element
-            }
-          }).filter(function (element) {
-            return !this[JSON.stringify(element)] && (this[JSON.stringify(element)] = true);
-          }, Object.create(null));
-
-          // console.log(provisoryEpisodes2)
-          setEpisodes(provisoryEpisodes2);
+          dispatch(loadEpisodesFetched(data.episodes.results));
         }
       } catch (error) {
         console.error(error);
       }
     }
-
     loadEpisodes()
+    console.log(episodesHome);
   }, [data]);
 
   return (
@@ -157,10 +133,10 @@ export default function AllEpisodes() {
         </div> :
         <Container>
           <Content>
-            {data && episodes.map(episode => (
+            {data && episodesHome.map(episode => (
               <EpisodeInfoCard
                 clickedEpisodeInfoCard={episode}
-                key={`episodeId${episode.id}`}
+                key={`episodesHomeId${episode.id}`}
                 episodeNumber={Number(episode.id) < 10 ? `0${String(episode.id)}` : String(episode.id)}
                 title={episode.name}
                 date={episode.air_date}
@@ -168,7 +144,7 @@ export default function AllEpisodes() {
                 episodeID={episode.id}
                 active={episode.favorite}
                 onClick={() => {
-                  handleAddEpisodeToFavorites(episode)
+                  handleAddEpisodeToFavorites(episode.id)
                 }}
               />
             ))}

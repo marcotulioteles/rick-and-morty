@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import allEpisodes from './all-episodes/reducer';
+import episodesGlobalState from './episodes-rick-and-morty/reducer';
 
 export default combineReducers({
-  allEpisodes
+  episodesGlobalState
 });

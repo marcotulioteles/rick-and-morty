@@ -16,7 +16,7 @@ import {
   RickAndMortyImageContainer,
   ContentEpisodeCards
 } from './styles';
-import { EpisodesData } from '../../pages/all-episodes';
+import { EpisodesData } from '../../pages/episodes-rick-and-morty';
 import { useTheme } from 'styled-components';
 import { useStore } from 'react-redux';
 
@@ -56,8 +56,6 @@ export function HomeContent() {
   const theme = useTheme();
   const store = useStore();
 
-  console.log(store);
-
   const { data } = useQuery<EpisodesData>(GET_FILTERED_EPISODE, {
     variables: { debouncedValue }
   });
@@ -86,6 +84,7 @@ export function HomeContent() {
               date={episode.air_date}
               charactersNumber={String(episode.characters.length)}
               episodeID={episode.id}
+              onClick={() => {}}
             />
           ))}
         </ContentEpisodeCards> :
