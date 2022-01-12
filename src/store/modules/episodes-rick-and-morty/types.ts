@@ -15,6 +15,8 @@ export interface IEpisode {
 }
 
 export interface IEpisodesGlobalState {
-  favorites: IEpisode[],
+  favorites: IEpisode[];
   allEpisodes: IEpisode[]
+  page: number;
+  fetchPage: number
 }

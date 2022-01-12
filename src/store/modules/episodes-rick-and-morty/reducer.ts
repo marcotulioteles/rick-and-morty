@@ -1,10 +1,11 @@
 import { Reducer } from "redux";
-import { sortByAscendingCallback, uniqueArray } from "../../../lib/utils";
 import { IEpisodesGlobalState } from "./types";
 
 const INITIAL_STATE: IEpisodesGlobalState = {
   favorites: [],
-  allEpisodes: []
+  allEpisodes: [],
+  page: 1,
+  fetchPage: 1
 }
 
 const episodesGlobalState: Reducer<IEpisodesGlobalState> = (state = INITIAL_STATE, action) => {
@@ -12,44 +13,43 @@ const episodesGlobalState: Reducer<IEpisodesGlobalState> = (state = INITIAL_STAT
     case 'ADD_EPISODE_TO_FAVORITE_LIST': {
       const { episodeId } = action.payload;
 
-      const objectIndex = state.allEpisodes.findIndex(item => item.id === episodeId);
+      const index = state.allEpisodes.findIndex(item => item.id === episodeId);
 
-      let objectToUpdate = {
-        ...state.allEpisodes[objectIndex],
-        favorite: true
-      };
-
-      const episodesArraySplitted = state.allEpisodes.filter(item => item.id !== episodeId);
-
-      const newAllEpisodesArray = [
-        ...episodesArraySplitted,
-        objectToUpdate
-      ]
-
-      const newFavoritesArray = newAllEpisodesArray.filter(item => item.favorite === true);
+      const restArray = state.allEpisodes.filter(item => item.id !== episodeId);
 
       return {
         ...state,
-        allEpisodes: newAllEpisodesArray.sort(sortByAscendingCallback),
+        allEpisodes: [
+          ...state.allEpisodes,
+          {
+            ...state.allEpisodes[index],
+            favorite: true
+          }
+        ],
         favorites: [
           ...state.favorites,
-          ...newFavoritesArray
+          {
+            ...state.allEpisodes[index],
+            favorite: true
+          }
         ]
       };
     }
     case 'ADD_EPISODES_FETCHED_TO_ARRAY': {
       const { episodes } = action.payload;
 
-      const newIncomingArray = [
-        ...state.allEpisodes,
-        ...episodes
-      ];
-
-      const newEpisodesWithUniqueObjects = uniqueArray(newIncomingArray);
-
       return {
         ...state,
-        allEpisodes: newEpisodesWithUniqueObjects
+        allEpisodes: [
+          ...state.allEpisodes,
+          ...episodes
+        ]
+      }
+    }
+    case 'INCREASE_FETCH_PAGE_NUMBER': {
+      return {
+        ...state,
+        fetchPage: state.fetchPage + 1
       }
     }
     default: {

@@ -17,3 +17,9 @@ export function loadEpisodesFetched(episodes: IEpisode[]) {
     }
   }
 }
+
+export function setFetchPage() {
+  return {
+    type: 'INCREASE_FETCH_PAGE_NUMBER'
+  }
+}

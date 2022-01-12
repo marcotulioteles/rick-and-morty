@@ -13,10 +13,9 @@ import {
   LoadingImage
 } from './styles';
 import { EpisodesContext } from '../../contexts/EpisodesContext';
-import { addEpisodeToFavoritesList, loadEpisodesFetched } from '../../store/modules/episodes-rick-and-morty/actions';
+import { addEpisodeToFavoritesList, loadEpisodesFetched, setFetchPage } from '../../store/modules/episodes-rick-and-morty/actions';
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { IState } from '../../store';
-import { uniqueArray } from '../../lib/utils';
 
 export type Characters = {
   id: string;
@@ -79,18 +78,14 @@ const GET_ALL_EPISODES = gql`
   `;
 
 export default function AllEpisodes() {
-  const { setPage, page } = useContext(EpisodesContext);
-  const [fetchPage, setFetchPage] = useState(1);
+  const episodesHome = useSelector<IState, IEpisode[]>(state => state.episodesGlobalState.allEpisodes);
+  const fetchPage = useSelector<IState, number>(state => state.episodesGlobalState.fetchPage);
+
+  const dispatch = useDispatch();
+
   const { data, loading, fetchMore } = useQuery<EpisodesData>(GET_ALL_EPISODES, {
     variables: { fetchPage }
   });
-  // const [episodes, setEpisodes] = useState<EpisodesResults[]>([]);
-  const dispatch = useDispatch();
-  const episodesHome = useSelector<IState, IEpisode[]>(state => state.episodesGlobalState.allEpisodes);
-
-  function handleFetchMoreEpisodes() {
-    setFetchPage(fetchPage + 1);
-  }
 
   const handleAddEpisodeToFavorites = useCallback((episodeId: string) => {
     dispatch(addEpisodeToFavoritesList(episodeId));
@@ -162,11 +157,10 @@ export default function AllEpisodes() {
       {data?.episodes.info.next &&
         <LoadMoreButton
           onClick={() => {
-            handleFetchMoreEpisodes()
+            dispatch(setFetchPage())
             fetchMore({
               variables: { fetchPage }
             })
-            setPage(fetchPage + 1);
           }}
         >
           Load More
