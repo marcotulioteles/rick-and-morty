@@ -1,4 +1,5 @@
 import { Reducer } from "redux";
+import { compareArrays, sortByAscendingCallback } from "../../../lib/utils";
 import { IEpisodesGlobalState } from "./types";
 
 const INITIAL_STATE: IEpisodesGlobalState = {
@@ -13,36 +14,33 @@ const episodesGlobalState: Reducer<IEpisodesGlobalState> = (state = INITIAL_STAT
     case 'ADD_EPISODE_TO_FAVORITE_LIST': {
       const { episodeId } = action.payload;
 
-      const index = state.allEpisodes.findIndex(item => item.id === episodeId);
+      const episodeFound = state.allEpisodes.find(episode => episode.id === episodeId);
 
-      const restArray = state.allEpisodes.filter(item => item.id !== episodeId);
+      const episodeUpdated = {
+        ...episodeFound,
+        favorite: true
+      }
+
+      const episodesArraySplitted = state.allEpisodes.filter(episode => episode.id !== episodeId);
 
       return {
         ...state,
         allEpisodes: [
-          ...state.allEpisodes,
-          {
-            ...state.allEpisodes[index],
-            favorite: true
-          }
-        ],
-        favorites: [
-          ...state.favorites,
-          {
-            ...state.allEpisodes[index],
-            favorite: true
-          }
-        ]
-      };
+          ...episodesArraySplitted,
+          episodeUpdated
+        ].sort(sortByAscendingCallback)
+      }
     }
     case 'ADD_EPISODES_FETCHED_TO_ARRAY': {
       const { episodes } = action.payload;
 
+      const newEpisodes = compareArrays(state.allEpisodes, episodes);
+
       return {
         ...state,
         allEpisodes: [
           ...state.allEpisodes,
-          ...episodes
+          ...newEpisodes
         ]
       }
     }

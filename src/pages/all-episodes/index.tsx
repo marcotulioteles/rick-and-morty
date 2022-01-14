@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
 import { EpisodeInfoCard } from '../../components/EpisodeInfoCard';
@@ -12,7 +12,6 @@ import {
   LoadMoreButton,
   LoadingImage
 } from './styles';
-import { EpisodesContext } from '../../contexts/EpisodesContext';
 import { addEpisodeToFavoritesList, loadEpisodesFetched, setFetchPage } from '../../store/modules/episodes-rick-and-morty/actions';
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { IState } from '../../store';
@@ -91,19 +90,23 @@ export default function AllEpisodes() {
     dispatch(addEpisodeToFavoritesList(episodeId));
   }, [dispatch]);
 
+  const handleFetchData = () => {
+    if (data) {
+      dispatch(loadEpisodesFetched(data.episodes.results));
+    }
+  }
+
   useEffect(() => {
     function loadEpisodes() {
-      try {
-        if (data) {
-          dispatch(loadEpisodesFetched(data.episodes.results));
-        }
-      } catch (error) {
-        console.error(error);
+      if (data) {
+        dispatch(loadEpisodesFetched(data.episodes.results))
       }
     }
-    loadEpisodes()
-    console.log(episodesHome);
-  }, [data]);
+
+    console.log(data?.episodes.results)
+
+    loadEpisodes();
+  }, [data])
 
   return (
     <MainWrapper>
@@ -128,7 +131,7 @@ export default function AllEpisodes() {
         </div> :
         <Container>
           <Content>
-            {data && episodesHome.map(episode => (
+            {episodesHome.map(episode => (
               <EpisodeInfoCard
                 clickedEpisodeInfoCard={episode}
                 key={`episodesHomeId${episode.id}`}
@@ -154,17 +157,20 @@ export default function AllEpisodes() {
           height={137}
         />
       </Title>
-      {data?.episodes.info.next &&
+
+      {fetchPage < 3 &&
         <LoadMoreButton
           onClick={() => {
             dispatch(setFetchPage())
             fetchMore({
               variables: { fetchPage }
             })
+            handleFetchData()
           }}
         >
           Load More
-        </LoadMoreButton>}
+        </LoadMoreButton>
+      }
     </MainWrapper>
   )
 }
