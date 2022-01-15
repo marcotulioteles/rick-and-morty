@@ -25,17 +25,6 @@ interface LikeButtonProps {
   isClicked?: boolean
 }
 
-interface EpisodeInfoCardProps {
-  title: string;
-  date: string;
-  charactersNumber: string;
-  episodeNumber: string;
-  favoriteActive?: boolean;
-  watchedActive?: boolean;
-  onClickFavorite: () => void;
-  episode: IEpisode
-}
-
 function LikeButton({
   active,
   onClick,
@@ -69,6 +58,18 @@ function LikeButton({
   )
 }
 
+interface EpisodeInfoCardProps {
+  title: string;
+  date: string;
+  charactersNumber: string;
+  episodeNumber: string;
+  favoriteActive?: boolean;
+  watchedActive?: boolean;
+  onClickFavorite: () => void;
+  onClickWatched: () => void;
+  episode: IEpisode
+}
+
 export function EpisodeInfoCard({
   title,
   date,
@@ -77,6 +78,7 @@ export function EpisodeInfoCard({
   favoriteActive,
   watchedActive,
   onClickFavorite,
+  onClickWatched,
   episode
 }: EpisodeInfoCardProps) {
   const { setClickedEpisode } = useContext(EpisodesContext);
@@ -102,7 +104,7 @@ export function EpisodeInfoCard({
         </LikeButton>
         <LikeButton
           active={watchedActive}
-          onClick={() => {}}
+          onClick={onClickWatched}
           isClicked={watchedActive}
           messageClicked='not watched'
           messageClickedOut='watched'

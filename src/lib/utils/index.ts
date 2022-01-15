@@ -29,3 +29,26 @@ export const compareArrays = (arrayState: IEpisode[], arrayReceived: IEpisode[] 
 
   return arrayResult;
 }
+
+export const compareFilteredAndStateArrays = (arrayState: IEpisode[], arrayFilteredEpisodes: IEpisode[] | any) => {
+  let episodesFromState = [];
+  let mutableFilteredEpisodesArray = [...arrayFilteredEpisodes];
+
+  for (let i = 0; i < arrayFilteredEpisodes.length; i++) {
+    const obj = arrayFilteredEpisodes[i];
+
+    const objectAlreadyExists = arrayState.some(episode => episode.id === obj.id);
+
+    if (objectAlreadyExists) {
+      const index = arrayState.findIndex(episode => episode.id === obj.id);
+
+      episodesFromState.push(arrayState[index]);
+
+      const filter = mutableFilteredEpisodesArray.filter(episode => episode.id !== obj.id);
+
+      mutableFilteredEpisodesArray = [...filter];
+    }
+  }
+
+  return [...episodesFromState, ...mutableFilteredEpisodesArray];
+}

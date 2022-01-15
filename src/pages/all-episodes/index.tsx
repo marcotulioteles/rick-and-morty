@@ -12,17 +12,9 @@ import {
   LoadMoreButton,
   LoadingImage
 } from './styles';
-import { addEpisodeToFavoritesList, loadEpisodesFetched, setFetchPage } from '../../store/modules/episodes-rick-and-morty/actions';
+import { addEpisodeToFavoritesList, addEpisodeToWatchedList, loadEpisodesFetched, setFetchPage } from '../../store/modules/episodes-rick-and-morty/actions';
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { IState } from '../../store';
-
-export type Characters = {
-  id: string;
-  name: string;
-  status: string;
-  species: string;
-  image?: string;
-}
 
 type EpisodesInfo = {
   count: number;
@@ -31,17 +23,9 @@ type EpisodesInfo = {
   next: number;
 }
 
-export type EpisodesResults = {
-  id: string;
-  name: string;
-  air_date: string;
-  favorite?: boolean;
-  characters: Characters[];
-}
-
 interface Episodes {
   info: EpisodesInfo;
-  results: EpisodesResults[]
+  results: IEpisode[]
 }
 
 export interface EpisodesData {
@@ -90,6 +74,10 @@ export default function AllEpisodes() {
     dispatch(addEpisodeToFavoritesList(episodeId));
   }, [dispatch]);
 
+  const handleEpisodeToWatched = useCallback((episodeId: string) => {
+    dispatch(addEpisodeToWatchedList(episodeId));
+  }, [dispatch]);
+
   const handleFetchData = () => {
     if (data) {
       dispatch(loadEpisodesFetched(data.episodes.results));
@@ -102,9 +90,6 @@ export default function AllEpisodes() {
         dispatch(loadEpisodesFetched(data.episodes.results))
       }
     }
-
-    console.log(data?.episodes.results)
-
     loadEpisodes();
   }, [data])
 
@@ -138,10 +123,14 @@ export default function AllEpisodes() {
                 title={episode.name}
                 date={episode.air_date}
                 charactersNumber={String(episode.characters.length)}
-                favoriteActive={episode.favorite}
                 onClickFavorite={() => {
                   handleEpisodeToFavorites(episode.id)
                 }}
+                onClickWatched={() => {
+                  handleEpisodeToWatched(episode.id)
+                }}
+                favoriteActive={episode.favorite}
+                watchedActive={episode.watched}
                 episode={episode}
               />
             ))}
@@ -167,7 +156,7 @@ export default function AllEpisodes() {
             handleFetchData()
           }}
         >
-          Load More
+          + episodes...
         </LoadMoreButton>
       }
     </MainWrapper>

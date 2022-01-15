@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useQuery, gql } from '@apollo/client';
 import { InputSearch } from '../../components/InputSearch';
@@ -14,11 +14,15 @@ import {
   Text,
   Portal,
   RickAndMortyImageContainer,
-  ContentEpisodeCards
+  ContentEpisodeCards,
+  LoadingImage
 } from './styles';
-import { EpisodesData } from '../../pages/episodes-rick-and-morty';
 import { useTheme } from 'styled-components';
-import { useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { EpisodesData } from '../../pages/all-episodes';
+import { addEpisodeToFavoritesList, addEpisodeToWatchedList, loadFilteredEpisodes } from '../../store/modules/episodes-rick-and-morty/actions';
+import { IState } from '../../store';
+import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 
 const rickAndMortyImage = "/images/rick-and-morty-home.png";
 const rickAndMortyTitle = "/images/rick-and-morty-title.png";
@@ -50,19 +54,40 @@ const GET_FILTERED_EPISODE = gql`
   }
 `;
 
+const RickAndMortyLoading = "/images/rick-and-morty-loading.gif";
+
 export function HomeContent() {
   const [episodeName, setEpisodeName] = useState<string>('');
   const debouncedValue = useDebounce<string>(episodeName, 500);
   const theme = useTheme();
-  const store = useStore();
 
-  const { data } = useQuery<EpisodesData>(GET_FILTERED_EPISODE, {
+  const dispatch = useDispatch();
+  const allEpisodes = useSelector<IState, IEpisode[]>(state => state.episodesGlobalState.allEpisodes);
+
+  const { data, loading } = useQuery<EpisodesData>(GET_FILTERED_EPISODE, {
     variables: { debouncedValue }
   });
 
   const handleSearchEpisode = (event: ChangeEvent<HTMLInputElement>) => {
     setEpisodeName(event.target.value);
   };
+
+  const handleEpisodeToFavorites = useCallback((episodeId: string) => {
+    dispatch(addEpisodeToFavoritesList(episodeId));
+  }, [dispatch]);
+
+  const handleEpisodeToWatched = useCallback((episodeId: string) => {
+    dispatch(addEpisodeToWatchedList(episodeId));
+  }, [dispatch]);
+
+  useEffect(() => {
+    function loadEpisodes() {
+      if (data) {
+        dispatch(loadFilteredEpisodes(data.episodes.results))
+      }
+    }
+    loadEpisodes();
+  }, [data]);
 
   return (
     <Container>
@@ -73,22 +98,9 @@ export function HomeContent() {
         placeholder="search an episode by name"
         onChange={handleSearchEpisode}
       />
-      {debouncedValue ?
-        (data ? <ContentEpisodeCards>
-          {data.episodes.results.map((episode) => (
-            <EpisodeInfoCard
-              clickedEpisodeInfoCard={episode}
-              key={episode.id}
-              episodeNumber={Number(episode.id) < 10 ? `0${String(episode.id)}` : String(episode.id)}
-              title={episode.name}
-              date={episode.air_date}
-              charactersNumber={String(episode.characters.length)}
-              episodeID={episode.id}
-              onClick={() => {}}
-            />
-          ))}
-        </ContentEpisodeCards> :
-          <div
+      {debouncedValue
+        ? (loading
+          ? <div
             style={{
               width: "65%",
               height: "75%",
@@ -97,12 +109,50 @@ export function HomeContent() {
               justifyContent: "center"
             }}
           >
-            <h1 style={{
-              fontSize: "2.5rem",
-              color: `${theme.colors.highlight}`,
-              fontWeight: "normal"
-            }}>Data Not Found!</h1>
-          </div>) :
+            <LoadingImage>
+              <Image
+                src={RickAndMortyLoading}
+                alt='Rick And Morty Loading'
+                width={256}
+                height={256}
+              />
+            </LoadingImage>
+          </div> : (data ? <ContentEpisodeCards>
+            {allEpisodes.map((episode) => (
+              <EpisodeInfoCard
+                key={episode.id}
+                episodeNumber={Number(episode.id) < 10 ? `0${String(episode.id)}` : String(episode.id)}
+                title={episode.name}
+                date={episode.air_date}
+                charactersNumber={String(episode.characters.length)}
+                episode={episode}
+                onClickFavorite={() => {
+                  handleEpisodeToFavorites(episode.id)
+                }}
+                onClickWatched={() => {
+                  handleEpisodeToWatched(episode.id)
+                }}
+                favoriteActive={episode.favorite}
+                watchedActive={episode.watched}
+              />
+            ))}
+          </ContentEpisodeCards> :
+            <div
+              style={{
+                width: "65%",
+                height: "75%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <h1 style={{
+                fontSize: "2.5rem",
+                color: `${theme.colors.highlight}`,
+                fontWeight: "normal"
+              }}>Data Not Found!</h1>
+            </div>))
+        :
         <>
           <TitleContent>
             <TitleAndSubtitle>

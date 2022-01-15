@@ -71,3 +71,11 @@ export const ContentEpisodeCards = styled.div`
     background-color: ${({ theme }) => theme.colors.background};
   }
 `;
+
+export const LoadingImage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 128px;
+`;

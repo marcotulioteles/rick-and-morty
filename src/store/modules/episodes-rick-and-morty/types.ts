@@ -11,11 +11,11 @@ export interface IEpisode {
   name: string,
   air_date: string,
   favorite?: boolean;
+  watched?: boolean;
   characters: ICharacter[]
 }
 
 export interface IEpisodesGlobalState {
-  favorites: IEpisode[];
   allEpisodes: IEpisode[]
   page: number;
   fetchPage: number

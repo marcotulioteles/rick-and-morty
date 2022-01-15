@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../store';
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { EpisodeInfoCard } from '../../components/EpisodeInfoCard';
-import { addEpisodeToFavoritesList } from '../../store/modules/episodes-rick-and-morty/actions';
+import { addEpisodeToFavoritesList, addEpisodeToWatchedList } from '../../store/modules/episodes-rick-and-morty/actions';
 
 const TitleImage = "/images/rick-and-morty-title.png";
 
@@ -23,7 +23,11 @@ export default function Favorites() {
 
   const handleEpisodeToFavoritesList = useCallback((episodeId: string) => {
     dispatch(addEpisodeToFavoritesList(episodeId));
-  }, [dispatch])
+  }, [dispatch]);
+
+  const handleEpisodeToWatched = useCallback((episodeId: string) => {
+    dispatch(addEpisodeToWatchedList(episodeId));
+  }, [dispatch]);
 
   return (
     <MainWrapper>
@@ -41,10 +45,14 @@ export default function Favorites() {
                 title={episode.name}
                 date={episode.air_date}
                 charactersNumber={String(episode.characters.length)}
-                favoriteActive={episode.favorite}
                 onClickFavorite={() => {
                   handleEpisodeToFavoritesList(episode.id)
                 }}
+                onClickWatched={() => {
+                  handleEpisodeToWatched(episode.id)
+                }}
+                favoriteActive={episode.favorite}
+                watchedActive={episode.watched}
                 episode={episode}
               />
             ))}

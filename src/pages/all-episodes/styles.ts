@@ -46,5 +46,5 @@ export const LoadMoreButton = styled.button`
   position: absolute;
   bottom: -32px;
   left: calc(50% - 100px);
-  font-size: 1.125rem;
+  font-size: 1.35rem;
 `;
