@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback } from 'react'
 import Image from 'next/image';
 import { MainWrapper } from '../../components/MainWrapper'
 
@@ -16,7 +16,7 @@ import { addEpisodeToFavoritesList, addEpisodeToWatchedList } from '../../store/
 
 const TitleImage = "/images/rick-and-morty-title.png";
 
-export default function Favorites() {
+function Favorites() {
   const dispatch = useDispatch();
 
   const allEpisodes = useSelector<IState, IEpisode[]>(state => state.episodesGlobalState.allEpisodes);
@@ -70,3 +70,5 @@ export default function Favorites() {
     </MainWrapper>
   )
 }
+
+export default Favorites;

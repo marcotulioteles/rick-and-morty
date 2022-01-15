@@ -11,7 +11,7 @@ import {
   Title,
   LoadMoreButton,
   LoadingImage
-} from './styles';
+} from '../../styles/pages/all-episodes';
 import { addEpisodeToFavoritesList, addEpisodeToWatchedList, loadEpisodesFetched, setFetchPage } from '../../store/modules/episodes-rick-and-morty/actions';
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { IState } from '../../store';
@@ -60,7 +60,7 @@ const GET_ALL_EPISODES = gql`
     }
   `;
 
-export default function AllEpisodes() {
+function AllEpisodes() {
   const episodesHome = useSelector<IState, IEpisode[]>(state => state.episodesGlobalState.allEpisodes);
   const fetchPage = useSelector<IState, number>(state => state.episodesGlobalState.fetchPage);
 
@@ -162,3 +162,5 @@ export default function AllEpisodes() {
     </MainWrapper>
   )
 }
+
+export default AllEpisodes;

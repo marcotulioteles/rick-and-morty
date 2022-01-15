@@ -1,18 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Image from 'next/image';
 import { EpisodeInfoPage } from '../../../components/EpisodeInfoPage'
 import { MainWrapper } from '../../../components/MainWrapper'
-import { EpisodesContext } from '../../../contexts/EpisodesContext';
 
 import {
   Title
-} from './styles'
+} from '../../../styles/pages/episode'
 
 const ImageTitle = "/images/rick-and-morty-title.png";
 
-export default function EpisodeDetails() {
-  const { episodeID } = useContext(EpisodesContext);
-
+function EpisodeDetails() {
   return (
     <MainWrapper>
       <EpisodeInfoPage />
@@ -27,3 +24,5 @@ export default function EpisodeDetails() {
     </MainWrapper>
   )
 }
+
+export default EpisodeDetails;
