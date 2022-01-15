@@ -1,11 +1,12 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image';
 import { MainWrapper } from '../../components/MainWrapper'
 
 import {
   Container,
   Content,
-  Title
+  Title,
+  EmptyMessageWrapper
 } from './styles'
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../store';
@@ -27,26 +28,27 @@ export default function Favorites() {
   return (
     <MainWrapper>
       <Container>
-        <Content>
-          {allEpisodes.filter(favoriteEpisode => favoriteEpisode.favorite === true).map(episode => (
-            <EpisodeInfoCard
-              key={`episodeId${episode.id}`}
-              episodeNumber={
-                Number(episode.id) < 10
-                  ? `0${String(episode.id)}`
-                  : String(episode.id)
-              }
-              title={episode.name}
-              date={episode.air_date}
-              charactersNumber={String(episode.characters.length)}
-              favoriteActive={episode.favorite}
-              onClickFavorite={() => {
-                handleEpisodeToFavoritesList(episode.id)
-              }}
-              episode={episode}
-            />
-          ))}
-        </Content>
+        {allEpisodes.filter(favoriteEpisode => favoriteEpisode.favorite === true).length > 0
+          ? <Content>
+            {allEpisodes.filter(favoriteEpisode => favoriteEpisode.favorite === true).map(episode => (
+              <EpisodeInfoCard
+                key={`episodeId${episode.id}`}
+                episodeNumber={
+                  Number(episode.id) < 10
+                    ? `0${String(episode.id)}`
+                    : String(episode.id)
+                }
+                title={episode.name}
+                date={episode.air_date}
+                charactersNumber={String(episode.characters.length)}
+                favoriteActive={episode.favorite}
+                onClickFavorite={() => {
+                  handleEpisodeToFavoritesList(episode.id)
+                }}
+                episode={episode}
+              />
+            ))}
+          </Content> : <EmptyMessageWrapper><span>You do not have any favorite episodes yet...</span></EmptyMessageWrapper>}
       </Container>
       <Title>
         <Image

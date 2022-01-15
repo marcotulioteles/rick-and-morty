@@ -29,3 +29,13 @@ export const Title = styled.div`
   position: absolute;
   top: -80px;
 `;
+
+export const EmptyMessageWrapper = styled.div`
+  width: 100%;
+  height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: ${({ theme }) => theme.colors.highlight};
+  font-size: 2rem;
+`;
