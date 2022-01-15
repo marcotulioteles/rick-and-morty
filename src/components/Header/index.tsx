@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MenuNavItem } from '../MenuNavItem';
-import { FiHome, FiFilm, FiStar } from 'react-icons/fi'
+import { FiHome, FiFilm, FiStar, FiMenu, FiX } from 'react-icons/fi'
 
 import {
   Container,
   NavList,
   NavListItem,
-  Navigation
+  Navigation,
+  MenuMobile
 } from './styles'
 
 export function Header() {
+  const [clicked, setClicked] = useState(true);
+  const [showMobile, setShowMobile] = useState(false);
+
   return (
     <Container>
       <Navigation>
-        <NavList>
+        <MenuMobile onClick={() => {
+          setClicked(!clicked)
+          setShowMobile(!showMobile)
+        }}>
+          {clicked ? <FiMenu /> : <FiX />}
+        </MenuMobile>
+        <NavList
+          showMobile={showMobile}
+        >
           <NavListItem>
             <MenuNavItem
               href="/"

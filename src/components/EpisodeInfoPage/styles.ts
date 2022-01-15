@@ -7,6 +7,11 @@ export const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin: 32px 0;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 export const Content = styled.div`
@@ -15,6 +20,11 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `;
 
 export const InfoEpisodeTextContent = styled.div`
@@ -23,6 +33,12 @@ export const InfoEpisodeTextContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
+  @media (max-width: 1200px) {
+    max-width: 75%;
+    text-align: center;
+    margin-bottom: 2rem;
+   }
 `;
 
 export const InfoEpisodeNumber = styled.h1`
@@ -40,6 +56,10 @@ export const InfoEpisodeTitle = styled.h2`
   color: ${({ theme }) => theme.colors.title};
   padding-right: 16px;
   word-wrap: break-word;
+
+  @media (max-width: 1200px) {
+    font-size: 2.5rem;
+   }
 `;
 
 export const InfoEpisodeDateRelease = styled.span`
@@ -48,6 +68,10 @@ export const InfoEpisodeDateRelease = styled.span`
   font-weight: normal;
   color: ${({ theme }) => theme.colors.text};
   padding-right: 16px;
+
+  @media (max-width: 1200px) {
+    font-size: 1.5rem;
+   }
 `;
 
 export const CharactersContainer = styled.div`
@@ -59,6 +83,12 @@ export const CharactersContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.text};
   border-radius: 24px;
   background-color: ${({ theme }) => theme.colors.background};
+
+  @media (max-width: 1200px) {
+    height: 50%;
+    width: 75%;
+    text-align: center;
+  }
 `;
 
 export const CharactersTitleContainer = styled.h1`
@@ -82,14 +112,18 @@ export const CharactersInfoContent = styled.div`
 
   overflow-y: scroll;
 
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   &::-webkit-scrollbar {
     width: 0.5rem;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: ${({theme }) => theme.colors.highlight };
+    background-color: ${({ theme }) => theme.colors.highlight};
     border-radius: 0.25rem;
   }
   &::-webkit-scrollbar-track {
-    background-color: ${({theme }) => theme.colors.background };
+    background-color: ${({ theme }) => theme.colors.background};
   }
 `;

@@ -19,4 +19,12 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: flex-end;
   position: relative;
+
+  @media(max-width: 1200px) {
+    width: 90%;
+  }
+  
+  @media(max-width: 860px) {
+    align-items: center;
+  }
 `;

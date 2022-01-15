@@ -143,7 +143,8 @@ export function HomeContent() {
                 height: "75%",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center"
+                justifyContent: "center",
+                textAlign: "center"
               }}
             >
               <h1 style={{
