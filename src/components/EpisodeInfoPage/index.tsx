@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
-import { EpisodesContext } from '../../contexts/EpisodesContext';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { IState } from '../../store';
+import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { CharacterInfoCard } from '../CharacterInfoCard';
 
 import {
@@ -15,7 +17,7 @@ import {
 } from './styles'
 
 export function EpisodeInfoPage() {
-  const { clickedEpisode } = useContext(EpisodesContext);
+  const clickedEpisode = useSelector<IState, IEpisode>(state => state.episodesGlobalState.clickedEpisode);
 
   return (
     <Container>

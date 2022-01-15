@@ -5,7 +5,15 @@ import { IEpisode, IEpisodesGlobalState } from "./types";
 const INITIAL_STATE: IEpisodesGlobalState = {
   allEpisodes: [],
   page: 1,
-  fetchPage: 1
+  fetchPage: 1,
+  clickedEpisode: {
+    air_date: '',
+    characters: [],
+    id: '',
+    name: '',
+    favorite: false,
+    watched: false,
+  }
 }
 
 const episodesGlobalState: Reducer<IEpisodesGlobalState> = (state = INITIAL_STATE, action) => {
@@ -95,6 +103,16 @@ const episodesGlobalState: Reducer<IEpisodesGlobalState> = (state = INITIAL_STAT
       return {
         ...state,
         allEpisodes: [...newEpisodes]
+      }
+    }
+    case 'CLICKED_EPISODE': {
+      const { episode } = action.payload
+
+      return {
+        ...state,
+        clickedEpisode: {
+          ...episode
+        }
       }
     }
     default: {

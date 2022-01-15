@@ -1,4 +1,4 @@
-import React, { ReactNode, useContext, useState } from 'react';
+import React, { ReactNode, useCallback, useContext, useState } from 'react';
 import { FiStar, FiTv } from 'react-icons/fi'
 import Link from 'next/link'
 
@@ -13,8 +13,9 @@ import {
   MessageOver,
   ButtonWrapper
 } from './styles'
-import { EpisodesContext } from '../../contexts/EpisodesContext';
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
+import { useDispatch } from 'react-redux';
+import { setClickedEpisode } from '../../store/modules/episodes-rick-and-morty/actions';
 
 interface LikeButtonProps {
   active?: boolean;
@@ -81,12 +82,16 @@ export function EpisodeInfoCard({
   onClickWatched,
   episode
 }: EpisodeInfoCardProps) {
-  const { setClickedEpisode } = useContext(EpisodesContext);
+  const dispatch = useDispatch();
+
+  const handleClickedEpisode = useCallback((episode: IEpisode) => {
+    dispatch(setClickedEpisode(episode));
+  }, [dispatch]);
 
   return (
     <Container>
       <Link href={`/episode/${title.toLowerCase().split(" ").join("-")}`} passHref>
-        <InfoContent onClick={() => { setClickedEpisode(episode) }}>
+        <InfoContent onClick={() => { handleClickedEpisode(episode) }}>
           <Title>{`${episodeNumber} - ${title}`}</Title>
           <InfoDate>{`air date: ${date}`}</InfoDate>
           <CharactersNumber>{`${charactersNumber} characters in this episode`}</CharactersNumber>

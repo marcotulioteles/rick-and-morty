@@ -41,3 +41,12 @@ export function setFetchPage() {
     type: 'INCREASE_FETCH_PAGE_NUMBER'
   }
 }
+
+export function setClickedEpisode(episode: IEpisode) {
+  return {
+    type: 'CLICKED_EPISODE',
+    payload: {
+      episode
+    }
+  }
+}

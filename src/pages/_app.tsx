@@ -3,7 +3,6 @@ import { GlobalStyle } from '../styles/global';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../styles/theme';
 import { ApolloProvider, ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
-import { EpisodesProvider } from '../contexts/EpisodesContext';
 import { Provider } from 'react-redux';
 import store from '../store';
 
@@ -31,9 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
           <Provider store={store}>
-            <EpisodesProvider>
-              <Component {...pageProps} />
-            </EpisodesProvider>
+            <Component {...pageProps} />
           </Provider>
         </ApolloProvider>
       </ThemeProvider>
