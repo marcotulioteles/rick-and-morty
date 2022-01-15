@@ -7,7 +7,7 @@ import {
   Content,
   Title,
   EmptyMessageWrapper
-} from './styles'
+} from '../../styles/pages/favorites';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../../store';
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
