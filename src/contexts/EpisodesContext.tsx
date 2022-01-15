@@ -1,13 +1,13 @@
 import { createContext, ReactNode, SetStateAction, useState } from 'react';
-import { EpisodesResults } from '../pages/episodes-rick-and-morty';
+import { IEpisode } from '../store/modules/episodes-rick-and-morty/types';
 
 interface EpisodesContextData {
   episodeID: string;
   setEpisodeID: React.Dispatch<SetStateAction<string>>;
   page: number;
   setPage: React.Dispatch<SetStateAction<number>>;
-  clickedEpisode: EpisodesResults;
-  setClickedEpisode: React.Dispatch<SetStateAction<EpisodesResults>>;
+  clickedEpisode: IEpisode;
+  setClickedEpisode: React.Dispatch<SetStateAction<IEpisode>>;
 }
 
 interface EpisodesProviderProps {
@@ -19,7 +19,7 @@ export const EpisodesContext = createContext<EpisodesContextData>({} as Episodes
 export function EpisodesProvider({ children }: EpisodesProviderProps) {
   const [episodeID, setEpisodeID] = useState('1');
   const [page, setPage] = useState(1);
-  const [clickedEpisode, setClickedEpisode] = useState<EpisodesResults>({} as EpisodesResults);
+  const [clickedEpisode, setClickedEpisode] = useState<IEpisode>({} as IEpisode);
 
   return (
     <EpisodesContext.Provider value={{

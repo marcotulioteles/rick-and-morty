@@ -59,29 +59,46 @@ export const CharactersNumber = styled.strong`
 export const ButtonsContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin: 12px 0;
 `;
 
+export const ButtonWrapper = styled.div`
+  position: relative;
+`;
+
 export const Button = styled.button<ButtonProps>`
-  height: 24px;
-  width: 68px;
+  height: 36px;
+  width: 36px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  border-radius: 12px;
-  border: 1px solid ${({ theme, active }) => active ? theme.colors.highlight : theme.colors.title};
-  background: none;
+  justify-content: center;
+  border-radius: 18px;
+  border: none;
+  background: ${({ theme, active }) => active ? theme.colors.highlight : theme.colors.secondary};
   outline: none;
-  color: ${({ theme, active }) => active ? theme.colors.highlight : theme.colors.title};
-  font-size: 0.65rem;
+  color: ${({ theme, active }) => active ? theme.colors.background : theme.colors.title};
+  font-size: 1.2rem;
   font-family: 'Exo 2', 'Arial', sans-serif;
   padding: 0 6px;
+  cursor: pointer;
   transition: color 0.2s ease-in, border 0.2s ease-in;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.highlight};
-    border: 1px solid ${({ theme }) => theme.colors.highlight};
+    color: ${({ theme }) => theme.colors.background};
+    border: 1px solid ${({ theme }) => theme.colors.background};
+    background: ${({ theme }) => theme.colors.highlight};
   }
+`;
+
+export const MessageOver = styled.div`
+  position: absolute;
+  padding: 0.2rem 0.35rem;
+  background-color: rgba(111, 190, 108, 0.5);
+  border-radius: 0.15rem;
+  top: 40px;
+  left: -50%;
+  font-size: 0.75rem
 `;

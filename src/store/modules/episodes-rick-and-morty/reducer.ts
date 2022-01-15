@@ -18,7 +18,7 @@ const episodesGlobalState: Reducer<IEpisodesGlobalState> = (state = INITIAL_STAT
 
       const episodeUpdated = {
         ...episodeFound,
-        favorite: true
+        favorite: !episodeFound?.favorite
       }
 
       const episodesArraySplitted = state.allEpisodes.filter(episode => episode.id !== episodeId);

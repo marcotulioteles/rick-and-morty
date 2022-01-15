@@ -86,7 +86,7 @@ export default function AllEpisodes() {
     variables: { fetchPage }
   });
 
-  const handleAddEpisodeToFavorites = useCallback((episodeId: string) => {
+  const handleEpisodeToFavorites = useCallback((episodeId: string) => {
     dispatch(addEpisodeToFavoritesList(episodeId));
   }, [dispatch]);
 
@@ -133,17 +133,16 @@ export default function AllEpisodes() {
           <Content>
             {episodesHome.map(episode => (
               <EpisodeInfoCard
-                clickedEpisodeInfoCard={episode}
                 key={`episodesHomeId${episode.id}`}
                 episodeNumber={Number(episode.id) < 10 ? `0${String(episode.id)}` : String(episode.id)}
                 title={episode.name}
                 date={episode.air_date}
                 charactersNumber={String(episode.characters.length)}
-                episodeID={episode.id}
-                active={episode.favorite}
-                onClick={() => {
-                  handleAddEpisodeToFavorites(episode.id)
+                favoriteActive={episode.favorite}
+                onClickFavorite={() => {
+                  handleEpisodeToFavorites(episode.id)
                 }}
+                episode={episode}
               />
             ))}
           </Content>

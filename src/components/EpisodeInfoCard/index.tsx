@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { ReactNode, useContext, useState } from 'react';
 import { FiStar, FiTv } from 'react-icons/fi'
 import Link from 'next/link'
 
@@ -10,19 +10,63 @@ import {
   ButtonsContainer,
   Button,
   InfoContent,
+  MessageOver,
+  ButtonWrapper
 } from './styles'
 import { EpisodesContext } from '../../contexts/EpisodesContext';
-import { EpisodesResults } from '../../pages/episodes-rick-and-morty';
+import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
+
+interface LikeButtonProps {
+  active?: boolean;
+  onClick: () => void;
+  children: ReactNode;
+  messageClicked: string;
+  messageClickedOut: string;
+  isClicked?: boolean
+}
 
 interface EpisodeInfoCardProps {
-  episodeID: string;
-  clickedEpisodeInfoCard: EpisodesResults
   title: string;
   date: string;
   charactersNumber: string;
   episodeNumber: string;
-  active?: boolean;
-  onClick: () => void;
+  favoriteActive?: boolean;
+  watchedActive?: boolean;
+  onClickFavorite: () => void;
+  episode: IEpisode
+}
+
+function LikeButton({
+  active,
+  onClick,
+  children,
+  messageClicked,
+  messageClickedOut,
+  isClicked
+}: LikeButtonProps) {
+  const [over, setOver] = useState(false);
+
+  const handleMouseOver = () => {
+    setTimeout(() => { setOver(true) }, 100)
+  }
+
+  const handleMouseOut = () => {
+    setTimeout(() => { setOver(false) }, 100)
+  }
+
+  return (
+    <ButtonWrapper>
+      <Button
+        active={active}
+        onClick={onClick}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
+      >
+        {children}
+      </Button>
+      {over && <MessageOver>{isClicked ? messageClicked : messageClickedOut}</MessageOver>}
+    </ButtonWrapper>
+  )
 }
 
 export function EpisodeInfoCard({
@@ -30,58 +74,41 @@ export function EpisodeInfoCard({
   date,
   charactersNumber,
   episodeNumber,
-  clickedEpisodeInfoCard,
-  episodeID,
-  active,
-  onClick
+  favoriteActive,
+  watchedActive,
+  onClickFavorite,
+  episode
 }: EpisodeInfoCardProps) {
   const { setClickedEpisode } = useContext(EpisodesContext);
-
-  function handleClickedEpisode(episode: EpisodesResults) {
-    setClickedEpisode(episode)
-  }
-
-  // function handleSendToFavorites(episode: EpisodesResults) {
-  //   const newObject = { ...episode, favorite: true }
-
-  //   function getFavorites() {
-  //     const favoriteEpisodes = localStorage.getItem("@rick-and-morty:favorites");
-
-  //     if (favoriteEpisodes) {
-  //       return JSON.parse(favoriteEpisodes);
-  //     } else {
-  //       return []
-  //     }
-  //   }
-
-  //   const localStorageFavoriteEpisodes = getFavorites();
-
-  //   let newFavoriteEpisodesArray = [ ...localStorageFavoriteEpisodes, newObject ];
-
-  //   const newArrayFavoriteElements = newFavoriteEpisodesArray.filter(function (element) {
-  //     return !this[JSON.stringify(element)] && (this[JSON.stringify(element)] = true);
-  //   }, Object.create(null));
-
-  //   localStorage.setItem('@rick-and-morty:favorites', JSON.stringify(newArrayFavoriteElements));
-  // }
 
   return (
     <Container>
       <Link href={`/episode/${title.toLowerCase().split(" ").join("-")}`} passHref>
-        <InfoContent onClick={() => handleClickedEpisode(clickedEpisodeInfoCard)}>
+        <InfoContent onClick={() => { setClickedEpisode(episode) }}>
           <Title>{`${episodeNumber} - ${title}`}</Title>
           <InfoDate>{`air date: ${date}`}</InfoDate>
           <CharactersNumber>{`${charactersNumber} characters in this episode`}</CharactersNumber>
         </InfoContent>
       </Link>
       <ButtonsContainer>
-        <Button
-          active={active}
-          onClick={onClick}
+        <LikeButton
+          active={favoriteActive}
+          onClick={onClickFavorite}
+          isClicked={favoriteActive}
+          messageClicked='not favorite'
+          messageClickedOut='favorite'
         >
-          <FiStar /> favorite
-        </Button>
-        <Button active={false}><FiTv /> watched</Button>
+          <FiStar />
+        </LikeButton>
+        <LikeButton
+          active={watchedActive}
+          onClick={() => {}}
+          isClicked={watchedActive}
+          messageClicked='not watched'
+          messageClickedOut='watched'
+        >
+          <FiTv />
+        </LikeButton>
       </ButtonsContainer>
     </Container>
   );
