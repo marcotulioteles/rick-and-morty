@@ -132,3 +132,14 @@ export const LoadingImage = styled.div`
   overflow: hidden;
   border-radius: 128px;
 `;
+
+export const Title = styled.div`
+  display: none;
+  position: absolute;
+  top: -80px;
+
+  @media (max-width: 860px) {
+    display: block;
+    top: -100px;
+  }
+`;

@@ -146,7 +146,7 @@ export default function AllEpisodes() {
         />
       </Title>
 
-      {fetchPage < 3 &&
+      {data?.episodes.info.next &&
         <LoadMoreButton
           onClick={() => {
             dispatch(setFetchPage())

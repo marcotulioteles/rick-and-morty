@@ -15,7 +15,8 @@ import {
   Portal,
   RickAndMortyImageContainer,
   ContentEpisodeCards,
-  LoadingImage
+  LoadingImage,
+  Title
 } from './styles';
 import { useTheme } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +27,7 @@ import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 
 const rickAndMortyImage = "/images/rick-and-morty-home.png";
 const rickAndMortyTitle = "/images/rick-and-morty-title.png";
+const ImageTitle = "/images/rick-and-morty-title.png";
 
 const GET_FILTERED_EPISODE = gql`
   query getFilteredEpisodes($debouncedValue: String) {
@@ -117,26 +119,36 @@ export function HomeContent() {
                 height={256}
               />
             </LoadingImage>
-          </div> : (data ? <ContentEpisodeCards>
-            {allEpisodes.map((episode) => (
-              <EpisodeInfoCard
-                key={episode.id}
-                episodeNumber={Number(episode.id) < 10 ? `0${String(episode.id)}` : String(episode.id)}
-                title={episode.name}
-                date={episode.air_date}
-                charactersNumber={String(episode.characters.length)}
-                episode={episode}
-                onClickFavorite={() => {
-                  handleEpisodeToFavorites(episode.id)
-                }}
-                onClickWatched={() => {
-                  handleEpisodeToWatched(episode.id)
-                }}
-                favoriteActive={episode.favorite}
-                watchedActive={episode.watched}
+          </div> : (data ? <>
+            <ContentEpisodeCards>
+              {allEpisodes.map((episode) => (
+                <EpisodeInfoCard
+                  key={episode.id}
+                  episodeNumber={Number(episode.id) < 10 ? `0${String(episode.id)}` : String(episode.id)}
+                  title={episode.name}
+                  date={episode.air_date}
+                  charactersNumber={String(episode.characters.length)}
+                  episode={episode}
+                  onClickFavorite={() => {
+                    handleEpisodeToFavorites(episode.id)
+                  }}
+                  onClickWatched={() => {
+                    handleEpisodeToWatched(episode.id)
+                  }}
+                  favoriteActive={episode.favorite}
+                  watchedActive={episode.watched}
+                />
+              ))}
+            </ContentEpisodeCards>
+            <Title>
+              <Image
+                src={ImageTitle}
+                alt="Rick And Morty"
+                width={418}
+                height={137}
               />
-            ))}
-          </ContentEpisodeCards> :
+            </Title>
+          </> :
             <div
               style={{
                 width: "65%",
