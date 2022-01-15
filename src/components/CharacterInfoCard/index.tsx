@@ -1,6 +1,6 @@
 import React from 'react';
-import { Characters } from '../../pages/episodes-rick-and-morty';
 import Image from 'next/image';
+import { ICharacter } from '../../store/modules/episodes-rick-and-morty/types';
 
 import {
   Container,
@@ -11,7 +11,7 @@ import {
   CharacterInfoLabel,
 } from './styles'
 
-export function CharacterInfoCard({ id, name, species, status, image }: Characters) {
+export function CharacterInfoCard({ id, name, species, status, image }: ICharacter) {
   return (
     <Container key={id}>
       <CharacterImage>
