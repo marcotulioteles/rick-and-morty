@@ -109,8 +109,8 @@ function AllEpisodes() {
             <Image
               src={RickAndMortyLoading}
               alt='Rick And Morty Loading'
-              width={256}
-              height={256}
+              width={180}
+              height={180}
             />
           </LoadingImage>
         </div> :
@@ -146,10 +146,10 @@ function AllEpisodes() {
         />
       </Title>
 
-      {data?.episodes.info.next &&
+      {data &&
         <LoadMoreButton
           onClick={() => {
-            dispatch(setFetchPage())
+            dispatch(setFetchPage(data.episodes.info.count))
             fetchMore({
               variables: { fetchPage }
             })

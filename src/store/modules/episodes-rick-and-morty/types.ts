@@ -17,7 +17,6 @@ export interface IEpisode {
 
 export interface IEpisodesGlobalState {
   allEpisodes: IEpisode[]
-  page: number;
   fetchPage: number,
   clickedEpisode: IEpisode
 }

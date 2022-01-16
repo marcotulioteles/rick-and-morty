@@ -4,7 +4,6 @@ import { IEpisode, IEpisodesGlobalState } from "./types";
 
 const INITIAL_STATE: IEpisodesGlobalState = {
   allEpisodes: [],
-  page: 1,
   fetchPage: 1,
   clickedEpisode: {
     air_date: '',
@@ -90,19 +89,34 @@ const episodesGlobalState: Reducer<IEpisodesGlobalState> = (state = INITIAL_STAT
       }
     }
     case 'INCREASE_FETCH_PAGE_NUMBER': {
+      const { totalEpisodes } = action.payload
+
+      const fetchPageChecked = (totalEpisodes: number) => {
+        if (state.allEpisodes.length >= totalEpisodes) {
+          return 1
+        } else {
+          return state.fetchPage + 1
+        }
+      }
+
       return {
         ...state,
-        fetchPage: state.fetchPage + 1
+        fetchPage: fetchPageChecked(totalEpisodes)
       }
     }
     case 'ADD_FILTERED_EPISODES_TO_ARRAY': {
       const { episodes } = action.payload
 
-      const newEpisodes = compareFilteredAndStateArrays(state.allEpisodes, episodes);
+      const filteredEpisodes = compareFilteredAndStateArrays(state.allEpisodes, episodes);
+
+      const allEpisodesUpdated = compareArrays(state.allEpisodes, filteredEpisodes);
 
       return {
         ...state,
-        allEpisodes: [...newEpisodes]
+        allEpisodes: [
+          ...state.allEpisodes,
+          ...allEpisodesUpdated
+        ]
       }
     }
     case 'CLICKED_EPISODE': {

@@ -10,6 +10,11 @@ export const Container = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 32px;
+
+  @media(max-height: 420px) {
+    height: 2rem;
+    margin-top: 1.5rem;
+  }
 `;
 
 export const Navigation = styled.nav`
@@ -20,6 +25,10 @@ export const Navigation = styled.nav`
   @media(max-width: 1200px) {
     position: relative;
     width: 90%;
+  }
+
+  @media(max-height: 420px) {
+    padding-bottom: 1rem;
   }
 `;
 
@@ -43,6 +52,21 @@ export const NavList = styled.ul<NavListProps>`
     background-color: ${({ theme }) => theme.colors.background};
     z-index: 10;
   }
+  
+  @media(max-height: 420px) {
+    position: absolute;
+    left: 2.25rem;
+    top: 2rem;
+    height: 120px;
+    width: 460px;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    display: ${({ showMobile }) => showMobile ? 'flex' : 'none'};
+    align-items: center;
+    justify-content: space-between;
+    background-color: ${({ theme }) => theme.colors.background};
+    z-index: 10;
+  }
 `;
 
 export const NavListItem = styled.li`
@@ -59,6 +83,11 @@ export const MenuMobile = styled.div`
   font-size: 2rem; 
 
   @media(max-width: 650px) {
+    display: flex;
+    align-items: center;
+  }
+  
+  @media(max-height: 420px) {
     display: flex;
     align-items: center;
   }

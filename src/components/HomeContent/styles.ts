@@ -14,6 +14,26 @@ export const Container = styled.div`
     height: 80%;
     align-items: center;
   }
+
+  @media(max-height: 420px) {
+    display: grid;
+    justify-items: center;
+    position: absolute;
+    bottom: 1.25rem;
+    height: 70%;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: ${({ theme }) => theme.colors.highlight};
+      border-radius: 0.25rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: ${({ theme }) => theme.colors.background};
+    }
+  }
 `;
 
 export const TitleContent = styled.div`
@@ -65,6 +85,10 @@ export const Portal = styled.div`
   }
 
   @media(max-width: 850px) {
+    display: none;
+  }
+  
+  @media(max-height: 420px) {
     display: none;
   }
 `;
@@ -122,6 +146,27 @@ export const ContentEpisodeCards = styled.div`
 
   @media(max-height: 900px) {
     height: 60%
+  }
+
+  @media(max-height: 420px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    position: absolute;
+    bottom: 1.25rem;
+    height: 75%;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: ${({ theme }) => theme.colors.highlight};
+      border-radius: 0.25rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: ${({ theme }) => theme.colors.background};
+    }
   }
 `;
 

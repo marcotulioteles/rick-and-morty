@@ -115,15 +115,21 @@ export function HomeContent() {
               <Image
                 src={RickAndMortyLoading}
                 alt='Rick And Morty Loading'
-                width={256}
-                height={256}
+                width={180}
+                height={180}
               />
             </LoadingImage>
           </div> : (data ? <>
             <ContentEpisodeCards>
-              {allEpisodes.map((episode) => (
+              {allEpisodes.filter(episode => {
+                if (debouncedValue === '') {
+                  return episode
+                } else if (episode.name.toLowerCase().includes(debouncedValue.toLowerCase())) {
+                  return episode
+                }
+              }).map((episode) => (
                 <EpisodeInfoCard
-                  key={episode.id}
+                  key={`episodeInforCard${episode.id}`}
                   episodeNumber={Number(episode.id) < 10 ? `0${String(episode.id)}` : String(episode.id)}
                   title={episode.name}
                   date={episode.air_date}

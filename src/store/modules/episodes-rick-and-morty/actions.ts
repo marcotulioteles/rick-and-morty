@@ -36,9 +36,12 @@ export function loadFilteredEpisodes(episodes: IEpisode[]) {
   }
 }
 
-export function setFetchPage() {
+export function setFetchPage(totalEpisodes: number) {
   return {
-    type: 'INCREASE_FETCH_PAGE_NUMBER'
+    type: 'INCREASE_FETCH_PAGE_NUMBER',
+    payload: {
+      totalEpisodes
+    }
   }
 }
 
