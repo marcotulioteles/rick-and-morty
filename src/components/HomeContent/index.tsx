@@ -175,7 +175,7 @@ export function HomeContent() {
                 width={418}
                 height={137}
               />
-              <Subtitle>guide episodes</Subtitle>
+              <Subtitle>episode guide</Subtitle>
             </TitleAndSubtitle>
             <Portal>
               <Image
