@@ -16,11 +16,11 @@ https://rick-and-morty-episodes-guide.vercel.app/
 
 ## 📸 Screenshots
 
-![](/home/marcotulioteles/Pictures/rick-and-morty-app.gif)
+![](/public/screenshots/rick-and-morty-app.gif)
 
-![](/home/marcotulioteles/Pictures/rick-and-morty-app02.gif)
+![](/public/screenshots/rick-and-morty-app02.gif)
 
-![](/home/marcotulioteles/Pictures/rick-and-morty-app03.gif)
+![](/public/screenshots/rick-and-morty-app03.gif)
 
 ---
 
