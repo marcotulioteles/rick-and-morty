@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { MenuNavItem } from '../MenuNavItem';
-import { FiHome, FiFilm, FiStar, FiMenu, FiX } from 'react-icons/fi'
+import { FiHome, FiFilm, FiStar, FiMenu, FiX } from 'react-icons/fi';
+import { IoLanguageOutline } from 'react-icons/io5';
 
 import {
   Container,
   NavList,
   NavListItem,
   Navigation,
-  MenuMobile
+  MenuMobile,
+  LanguageSwitcherContainer,
+  LanguageSwitcherButton,
+  LanguageSwitcherList,
+  LanguageSwitcherItem,
+  FlagWrapper
 } from './styles'
+
+const BrFlagUrl = '/images/br.svg';
+const FrFlagUrl = '/images/fr.svg';
+const UsFlagUrl = '/images/us.svg';
 
 export function Header() {
   const [clicked, setClicked] = useState(true);
@@ -48,6 +59,28 @@ export function Header() {
             />
           </NavListItem>
         </NavList>
+
+        <LanguageSwitcherContainer>
+          <LanguageSwitcherButton>
+            <IoLanguageOutline />
+          </LanguageSwitcherButton>
+          <LanguageSwitcherList>
+            <LanguageSwitcherItem>
+              <FlagWrapper urlImage={BrFlagUrl} />
+              pt-br
+            </LanguageSwitcherItem>
+
+            <LanguageSwitcherItem>
+              <FlagWrapper urlImage={UsFlagUrl} />
+              en
+            </LanguageSwitcherItem>
+
+            <LanguageSwitcherItem>
+              <FlagWrapper urlImage={FrFlagUrl} />
+              fr
+            </LanguageSwitcherItem>
+          </LanguageSwitcherList>
+        </LanguageSwitcherContainer>
       </Navigation>
     </Container>
   );

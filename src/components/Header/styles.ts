@@ -4,6 +4,10 @@ interface NavListProps {
   showMobile: boolean;
 }
 
+interface ImageWrapperProps {
+  urlImage: string;
+}
+
 export const Container = styled.div`
   width: 100%;
   height: 80px;
@@ -20,6 +24,7 @@ export const Container = styled.div`
 export const Navigation = styled.nav`
   width: 1030px;
   display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.colors.text};
 
   @media(max-width: 1200px) {
@@ -91,4 +96,74 @@ export const MenuMobile = styled.div`
     display: flex;
     align-items: center;
   }
-`
+`;
+
+export const LanguageSwitcherContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4rem;
+`;
+
+export const LanguageSwitcherButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  padding: 0.5rem 0.5rem;
+  background-color: ${({ theme }) => theme.colors.highlight};
+  border: none;
+  border-radius: 50%;
+  transition: opacity 0.2s ease-in;
+
+  &:hover {
+    opacity: 0.75;
+  }
+`;
+
+export const LanguageSwitcherList = styled.ul`
+  left: 0%;
+  top: 80%;
+  position: absolute;
+  list-style: none;
+  width: 7.5rem;
+  background-color: ${({ theme }) => theme.colors.background};
+  color: ${({ theme }) => theme.colors.title};
+  border: 1px solid;
+  border-color: ${({ theme }) => theme.colors.secondary};
+  border-radius: 0.5rem;
+  z-index: 20;
+`;
+
+export const LanguageSwitcherItem = styled.li`
+  display: flex;
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  transition: background-color 0.2s ease-in, color 0.2s ease-in;
+  cursor: pointer;
+
+  &:first-child {
+    border-radius: 0.5rem 0.5rem 0 0; 
+  }
+  
+  &:last-child {
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.highlight};
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+export const FlagWrapper = styled.div<ImageWrapperProps>`
+  width: 1.5rem;
+  height: 1.5rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background-image: ${({ urlImage }) => `url(${urlImage})`};
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 0.5rem; 
+`;
