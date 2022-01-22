@@ -8,6 +8,10 @@ interface ImageWrapperProps {
   urlImage: string;
 }
 
+interface LanguageListProps {
+  showList: boolean;
+}
+
 export const Container = styled.div`
   width: 100%;
   height: 80px;
@@ -122,7 +126,8 @@ export const LanguageSwitcherButton = styled.button`
   }
 `;
 
-export const LanguageSwitcherList = styled.ul`
+export const LanguageSwitcherList = styled.ul<LanguageListProps>`
+  display: ${({ showList }) => showList ? 'block' : 'none'};
   left: 0%;
   top: 80%;
   position: absolute;
@@ -157,7 +162,7 @@ export const LanguageSwitcherItem = styled.li`
   }
 `;
 
-export const FlagWrapper = styled.div<ImageWrapperProps>`
+export const FlagImage = styled.div<ImageWrapperProps>`
   width: 1.5rem;
   height: 1.5rem;
   overflow: hidden;

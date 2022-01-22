@@ -14,7 +14,7 @@ import {
   LanguageSwitcherButton,
   LanguageSwitcherList,
   LanguageSwitcherItem,
-  FlagWrapper
+  FlagImage
 } from './styles'
 
 const BrFlagUrl = '/images/br.svg';
@@ -24,6 +24,7 @@ const UsFlagUrl = '/images/us.svg';
 export function Header() {
   const [clicked, setClicked] = useState(true);
   const [showMobile, setShowMobile] = useState(false);
+  const [showLanguages, setShowLanguages] = useState(false);
 
   return (
     <Container>
@@ -61,22 +62,24 @@ export function Header() {
         </NavList>
 
         <LanguageSwitcherContainer>
-          <LanguageSwitcherButton>
+          <LanguageSwitcherButton onClick={() => setShowLanguages(!showLanguages)}>
             <IoLanguageOutline />
           </LanguageSwitcherButton>
-          <LanguageSwitcherList>
+          <LanguageSwitcherList
+            showList={showLanguages}
+          >
             <LanguageSwitcherItem>
-              <FlagWrapper urlImage={BrFlagUrl} />
+              <FlagImage urlImage={BrFlagUrl} />
               pt-br
             </LanguageSwitcherItem>
 
             <LanguageSwitcherItem>
-              <FlagWrapper urlImage={UsFlagUrl} />
+              <FlagImage urlImage={UsFlagUrl} />
               en
             </LanguageSwitcherItem>
 
             <LanguageSwitcherItem>
-              <FlagWrapper urlImage={FrFlagUrl} />
+              <FlagImage urlImage={FrFlagUrl} />
               fr
             </LanguageSwitcherItem>
           </LanguageSwitcherList>
