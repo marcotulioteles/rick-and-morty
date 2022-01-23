@@ -128,7 +128,7 @@ export const LanguageSwitcherButton = styled.button`
 
 export const LanguageSwitcherList = styled.ul<LanguageListProps>`
   display: ${({ showList }) => showList ? 'block' : 'none'};
-  left: 0%;
+  left: -300%;
   top: 80%;
   position: absolute;
   list-style: none;
