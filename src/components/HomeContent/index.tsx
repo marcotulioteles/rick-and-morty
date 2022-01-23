@@ -6,6 +6,8 @@ import { InputSearch } from '../../components/InputSearch';
 import useDebounce from '../../hooks/Debounce';
 import { EpisodeInfoCard } from '../EpisodeInfoCard';
 
+import { useTranslation } from 'next-i18next';
+
 import {
   Container,
   TitleContent,
@@ -62,6 +64,7 @@ export function HomeContent() {
   const [episodeName, setEpisodeName] = useState<string>('');
   const debouncedValue = useDebounce<string>(episodeName, 500);
   const theme = useTheme();
+  const { t } = useTranslation('common');
 
   const dispatch = useDispatch();
   const allEpisodes = useSelector<IState, IEpisode[]>(state => state.episodesGlobalState.allEpisodes);
@@ -97,7 +100,7 @@ export function HomeContent() {
         inputID="search"
         inputName="search"
         inputType="text"
-        placeholder="search an episode by name"
+        placeholder={t('input_placeholder')}
         onChange={handleSearchEpisode}
       />
       {debouncedValue
@@ -169,7 +172,7 @@ export function HomeContent() {
                 fontSize: "2.5rem",
                 color: `${theme.colors.highlight}`,
                 fontWeight: "normal"
-              }}>Data Not Found!</h1>
+              }}>{t('data_not_found')}</h1>
             </div>))
         :
         <>
@@ -181,7 +184,7 @@ export function HomeContent() {
                 width={418}
                 height={137}
               />
-              <Subtitle>episode guide</Subtitle>
+              <Subtitle>{t('title')}</Subtitle>
             </TitleAndSubtitle>
             <Portal>
               <Image
@@ -192,12 +195,7 @@ export function HomeContent() {
               />
             </Portal>
           </TitleContent>
-          <Text>
-            Rick and Morty is an American adult animated science fiction sitcom
-            and it follows the misadventures of cynical mad scientist Rick Sanchez
-            and his good-hearted but fretful grandson Morty Smith, who split their
-            time between domestic life and interdimensional adventures.
-          </Text>
+          <Text>{t('paragraph')}</Text>
           <RickAndMortyImageContainer>
             <Image
               alt='Rick and Morty Image'

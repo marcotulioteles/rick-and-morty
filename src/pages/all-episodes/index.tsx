@@ -15,6 +15,8 @@ import {
 import { addEpisodeToFavoritesList, addEpisodeToWatchedList, loadEpisodesFetched, setFetchPage } from '../../store/modules/episodes-rick-and-morty/actions';
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { IState } from '../../store';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 type EpisodesInfo = {
   count: number;
@@ -162,5 +164,11 @@ function AllEpisodes() {
     </MainWrapper>
   )
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale = '' }) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common', 'header'])
+  }
+})
 
 export default AllEpisodes;

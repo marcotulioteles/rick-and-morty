@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react'
+import { GetStaticProps } from 'next';
 import Image from 'next/image';
-import { MainWrapper } from '../../components/MainWrapper'
+import { MainWrapper } from '../../components/MainWrapper';
+import { useTranslation } from 'next-i18next';
 
 import {
   Container,
@@ -13,12 +15,13 @@ import { IState } from '../../store';
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { EpisodeInfoCard } from '../../components/EpisodeInfoCard';
 import { addEpisodeToFavoritesList, addEpisodeToWatchedList } from '../../store/modules/episodes-rick-and-morty/actions';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const TitleImage = "/images/rick-and-morty-title.png";
 
 function Favorites() {
   const dispatch = useDispatch();
-
+  const { t } = useTranslation('common');
   const allEpisodes = useSelector<IState, IEpisode[]>(state => state.episodesGlobalState.allEpisodes);
 
   const handleEpisodeToFavoritesList = useCallback((episodeId: string) => {
@@ -56,7 +59,7 @@ function Favorites() {
                 episode={episode}
               />
             ))}
-          </Content> : <EmptyMessageWrapper><span>You do not have any favorite episodes yet...</span></EmptyMessageWrapper>}
+          </Content> : <EmptyMessageWrapper><span>{t('favorites_empty')}</span></EmptyMessageWrapper>}
       </Container>
       <Title>
         <Image
@@ -70,5 +73,11 @@ function Favorites() {
     </MainWrapper>
   )
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale = '' }) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['common', 'header'])
+  }
+})
 
 export default Favorites;
