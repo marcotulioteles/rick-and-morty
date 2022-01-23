@@ -6,7 +6,7 @@ import { MainWrapper } from '../../../components/MainWrapper'
 import {
   Title
 } from '../../../styles/pages/episode'
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const ImageTitle = "/images/rick-and-morty-title.png";
@@ -25,6 +25,16 @@ function EpisodeDetails() {
       </Title>
     </MainWrapper>
   )
+}
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return {
+    paths: [
+      '/episode/some-slug',
+      { params: { slug: 'another-slug' } }
+    ],
+    fallback: true
+  }
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale = '' }) => ({
