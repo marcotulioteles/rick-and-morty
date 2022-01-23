@@ -17,6 +17,7 @@ import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { IState } from '../../store';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getAllEpisodesQuery } from '../../../graphqlSchemas';
 
 type EpisodesInfo = {
   count: number;
@@ -37,30 +38,7 @@ export interface EpisodesData {
 const RickAndMortyLoading = "/images/rick-and-morty-loading.gif";
 const ImageTitle = "/images/rick-and-morty-title.png";
 
-const GET_ALL_EPISODES = gql`
-    query getEpisodes($fetchPage: Int){
-      episodes(page: $fetchPage) {
-        info {
-          count
-          pages
-          prev
-          next
-        }
-        results {
-          id
-          name
-          air_date
-          characters {
-            id
-            name
-            status
-            species
-            image
-          }
-        }
-      }
-    }
-  `;
+const GET_ALL_EPISODES = gql`${getAllEpisodesQuery}`;
 
 function AllEpisodes() {
   const episodesHome = useSelector<IState, IEpisode[]>(state => state.episodesGlobalState.allEpisodes);
