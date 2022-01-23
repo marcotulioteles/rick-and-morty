@@ -1,7 +1,7 @@
 {
-  "input_placeholder": "cherchez un episode par nom",
-  "title": "guide des episodes",
+  "input_placeholder": "cherchez un épisode par nom",
+  "title": "guide des épisodes",
   "paragraph": "Rick et Morty c'est une serie d'animation americaine de science fiction qui suit les aventures du cinique et fou scientifique Rick Sanchez et son grand fils de bon coeur et agité Morty Smith, qui partagent leur temps entre la vie domestique et des aventures interdimensionels.",
   "data_not_found": "Aucun donné a été trouvé!",
-  "favorites_empty": "Vous n'avez pas encore des episodes favorites..."
+  "favorites_empty": "Vous n'avez pas encore des épisodes favorites..."
 }
