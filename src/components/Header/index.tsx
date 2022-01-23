@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { MenuNavItem } from '../MenuNavItem';
 import { FiHome, FiFilm, FiStar, FiMenu, FiX } from 'react-icons/fi';
 import { IoLanguageOutline } from 'react-icons/io5';

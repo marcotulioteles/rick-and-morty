@@ -163,9 +163,8 @@ export const LanguageSwitcherItem = styled.li`
 `;
 
 export const FlagImage = styled.div<ImageWrapperProps>`
-  width: 1.5rem;
-  height: 1.5rem;
-  overflow: hidden;
+  width: 1.25rem;
+  height: 1.25rem;
   border-radius: 0.75rem;
   background-image: ${({ urlImage }) => `url(${urlImage})`};
   background-repeat: no-repeat;
