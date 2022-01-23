@@ -3,7 +3,7 @@ import { FiSearch } from 'react-icons/fi';
 
 import {
   Label,
-  Input    
+  Input
 } from './styles';
 
 interface InputSearchProps {
@@ -17,8 +17,8 @@ interface InputSearchProps {
 export function InputSearch({ placeholder, inputType, inputName, inputID, onChange }: InputSearchProps) {
   return (
     <Label>
-      <FiSearch size={24} style={{ marginLeft: "16px" }}/>
-      <Input 
+      <FiSearch size={24} style={{ marginLeft: "16px" }} />
+      <Input
         placeholder={placeholder}
         type={inputType}
         name={inputName}

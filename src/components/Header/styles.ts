@@ -132,7 +132,7 @@ export const LanguageSwitcherList = styled.ul<LanguageListProps>`
   top: 80%;
   position: absolute;
   list-style: none;
-  width: 7.5rem;
+  width: fit-content;
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.title};
   border: 1px solid;
@@ -141,9 +141,16 @@ export const LanguageSwitcherList = styled.ul<LanguageListProps>`
   z-index: 20;
 `;
 
+export const LanguageSwitcherLink = styled.a`
+  display: flex;
+  width: 8rem;
+  color: inherit;
+  text-decoration: none;
+`;
+
 export const LanguageSwitcherItem = styled.li`
   display: flex;
-  width: 100%;
+  width: fit-content;
   padding: 0.5rem 0.5rem;
   transition: background-color 0.2s ease-in, color 0.2s ease-in;
   cursor: pointer;
@@ -165,7 +172,7 @@ export const LanguageSwitcherItem = styled.li`
 export const FlagImage = styled.div<ImageWrapperProps>`
   width: 1.25rem;
   height: 1.25rem;
-  border-radius: 0.75rem;
+  border-radius: 0.625rem;
   background-image: ${({ urlImage }) => `url(${urlImage})`};
   background-repeat: no-repeat;
   background-position: center;
