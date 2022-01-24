@@ -33,15 +33,9 @@ export const getStaticProps: GetStaticProps = async ({ locale = '' }) => ({
 })
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const arrayOfNames = episodesNames;
-
-  const paths = arrayOfNames.map(episode => ({
-    params: { slug: episode.toLowerCase().split(' ').join('-') }
-  }))
-
   return {
-    paths,
-    fallback: true
+    paths: [],
+    fallback: 'blocking'
   }
 }
 
