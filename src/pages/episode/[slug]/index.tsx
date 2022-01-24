@@ -1,12 +1,12 @@
 import React from 'react'
-import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import { EpisodeInfoPage } from '../../../components/EpisodeInfoPage'
 import { MainWrapper } from '../../../components/MainWrapper'
 
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { Title } from '../../../styles/pages/episode'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import store from '../../../store';
+import { episodesNames } from '../../../lib/constants';
 
 const ImageTitle = "/images/rick-and-morty-title.png";
 
@@ -32,11 +32,11 @@ export const getStaticProps: GetStaticProps = async ({ locale = '' }) => ({
   }
 })
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const state = store.getState();
+export const getStaticPaths: GetStaticPaths = () => {
+  const arrayOfNames = episodesNames;
 
-  const paths = state.episodesGlobalState.allEpisodes.map(episode => ({
-    params: { slug: episode.name.toLowerCase().split(' ').join('-') }
+  const paths = arrayOfNames.map(episode => ({
+    params: { slug: episode.toLowerCase().split(' ').join('-') }
   }))
 
   return {
