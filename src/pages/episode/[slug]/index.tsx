@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { EpisodeInfoPage } from '../../../components/EpisodeInfoPage'
 import { MainWrapper } from '../../../components/MainWrapper'
 
-import { GetStaticPaths, GetStaticProps } from 'next';
 import { Title } from '../../../styles/pages/episode'
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { episodesNames } from '../../../lib/constants';
 
@@ -33,8 +33,16 @@ export const getStaticProps: GetStaticProps = async ({ locale = '' }) => ({
 })
 
 export const getStaticPaths: GetStaticPaths = () => {
+  const paths = episodesNames.map(name => {
+    return {
+      params: {
+        slug: name.toLowerCase().split(' ').join('-')
+      }
+    }
+  })
+
   return {
-    paths: [],
+    paths,
     fallback: 'blocking'
   }
 }
