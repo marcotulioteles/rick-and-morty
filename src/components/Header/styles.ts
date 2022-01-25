@@ -80,6 +80,7 @@ export const NavList = styled.ul<NavListProps>`
 
 export const NavListItem = styled.li`
   margin-right: 80px;
+  text-align: center;
 
   @media(max-width: 650px) {
     margin-right: 0;
