@@ -1,6 +1,5 @@
-import React, { ReactNode, useCallback, useContext, useState } from 'react';
+import React, { ReactNode, useCallback, useState } from 'react';
 import { FiStar, FiTv } from 'react-icons/fi'
-import Link from 'next/link'
 
 import {
   Container,
@@ -16,6 +15,7 @@ import {
 import { IEpisode } from '../../store/modules/episodes-rick-and-morty/types';
 import { useDispatch } from 'react-redux';
 import { setClickedEpisode } from '../../store/modules/episodes-rick-and-morty/actions';
+import { Modal } from '../Modal';
 
 interface LikeButtonProps {
   active?: boolean;
@@ -82,6 +82,7 @@ export function EpisodeInfoCard({
   onClickWatched,
   episode
 }: EpisodeInfoCardProps) {
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
 
   const handleClickedEpisode = useCallback((episode: IEpisode) => {
@@ -89,34 +90,41 @@ export function EpisodeInfoCard({
   }, [dispatch]);
 
   return (
-    <Container>
-      <Link href={`/episode/${title.toLowerCase().split(" ").join("-")}`} passHref>
-        <InfoContent onClick={() => { handleClickedEpisode(episode) }}>
+    <>
+      <Container>
+        <InfoContent onClick={() => {
+          handleClickedEpisode(episode)
+          setShowModal(true)
+        }}>
           <Title>{`${episodeNumber} - ${title}`}</Title>
           <InfoDate>{`air date: ${date}`}</InfoDate>
           <CharactersNumber>{`${charactersNumber} characters in this episode`}</CharactersNumber>
         </InfoContent>
-      </Link>
-      <ButtonsContainer>
-        <LikeButton
-          active={favoriteActive}
-          onClick={onClickFavorite}
-          isClicked={favoriteActive}
-          messageClicked='not favorite'
-          messageClickedOut='favorite'
-        >
-          <FiStar />
-        </LikeButton>
-        <LikeButton
-          active={watchedActive}
-          onClick={onClickWatched}
-          isClicked={watchedActive}
-          messageClicked='not watched'
-          messageClickedOut='watched'
-        >
-          <FiTv />
-        </LikeButton>
-      </ButtonsContainer>
-    </Container>
+        <ButtonsContainer>
+          <LikeButton
+            active={favoriteActive}
+            onClick={onClickFavorite}
+            isClicked={favoriteActive}
+            messageClicked='not favorite'
+            messageClickedOut='favorite'
+          >
+            <FiStar />
+          </LikeButton>
+          <LikeButton
+            active={watchedActive}
+            onClick={onClickWatched}
+            isClicked={watchedActive}
+            messageClicked='not watched'
+            messageClickedOut='watched'
+          >
+            <FiTv />
+          </LikeButton>
+        </ButtonsContainer>
+      </Container>
+      <Modal
+        showModal={showModal}
+        handleModal={() => setShowModal(false)}
+      />
+    </>
   );
 }

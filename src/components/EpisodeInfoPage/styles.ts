@@ -5,7 +5,7 @@ export const Container = styled.div`
   height: 90%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   margin: 32px 0;
 
   @media (max-width: 1200px) {
