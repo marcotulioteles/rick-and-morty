@@ -10,7 +10,7 @@ This project is build to show with a easy way all information about Rick and Mor
 
 ## Link to this applications on-line:
 
-https://rick-and-morty-episodes-guide.vercel.app/
+https://rickandmorty-guideepisodes.vercel.app/
 
 ---
 
