@@ -16,11 +16,7 @@ https://rick-and-morty-episodes-guide.vercel.app/
 
 ## 📸 Screenshots
 
-![](/public/screenshots/rick-and-morty-app.gif)
-
-![](/public/screenshots/rick-and-morty-app02.gif)
-
-![](/public/screenshots/rick-and-morty-app03.gif)
+![](/public/screenshots/rick-and-morty-app27Jan2022.gif)
 
 ---
 
