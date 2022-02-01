@@ -63,6 +63,7 @@ Now you can navigate on it.
 - [Redux](https://redux.js.org/)
 - [GraphQL](https://graphql.org/)
 - [Apollo Client](https://www.apollographql.com/)
+- [next-i18next](https://github.com/isaachinman/next-i18next)
 
 ---
 
